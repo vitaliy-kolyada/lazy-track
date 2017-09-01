@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="lazy_track"/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+
+    </bean><!-- Database Information -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/lazy_tracker"/>
+        <property name="username" value="root"/>
+        <property name="password" value="Supermario963"/>
+
+    </bean><!-- Hibernate 4 SessionFactory Bean definition -->
+    <bean id="hibernate4AnnotatedSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>lazy_track.model.Company</value>
+                <value>lazy_track.model.Issue</value>
+                <value>lazy_track.model.Project</value>
+                <value>lazy_track.model.Sprint</value>
+                <value>lazy_track.model.User</value>
+                <value>lazy_track.model.UserStory</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                </prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+
+    </bean><!--BookDao and BookService beans-->
+    <bean id="companyDao" class="lazy_track.dao.CompanyDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="issueDao" class="lazy_track.dao.IssueDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="projectDao" class="lazy_track.dao.ProjectDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="sprintDao" class="lazy_track.dao.SprintDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="userDao" class="lazy_track.dao.UserDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="userStoryDao" class="lazy_track.dao.UserStoryDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <bean id="companyService" class="lazy_track.service.CompanyServiceImpl">
+        <property name="companyDao" ref="companyDao"/>
+    </bean>
+    <bean id="issueService" class="lazy_track.service.IssueServiceImpl">
+        <property name="issueDao" ref="issueDao"/>
+    </bean>
+    <bean id="projectService" class="lazy_track.service.ProjectServiceImpl">
+        <property name="projectDao" ref="projectDao"/>
+    </bean>
+    <bean id="sprintService" class="lazy_track.service.SprintServiceImpl">
+        <property name="sprintDao" ref="sprintDao"/>
+    </bean>
+    <bean id="userService" class="lazy_track.service.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="userStoryService" class="lazy_track.service.UserStoryServiceImpl">
+        <property name="userStoryDao" ref="userStoryDao"/>
+    </bean>
+
+    <context:component-scan base-package="lazy_track"/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+</beans>

@@ -1,6 +1,6 @@
-package dao;
+package lazy_track.dao;
 
-import model.User;
+import lazy_track.model.User;
 
 import java.util.List;
 

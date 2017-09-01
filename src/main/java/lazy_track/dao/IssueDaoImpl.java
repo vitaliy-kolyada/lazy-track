@@ -1,6 +1,6 @@
-package dao;
+package lazy_track.dao;
 
-import model.Issue;
+import lazy_track.model.Issue;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public class IssueDaoImpl implements IssueDao {
     @SuppressWarnings("unchecked")
     public List<Issue> list() {
         Session session = sessionFactory.getCurrentSession();
-        List<Issue> issues = session.createQuery("from model.Issue").list();
+        List<Issue> issues = session.createQuery("from lazy_track.model.Issue").list();
         for (Issue issue : issues) {
             LOGGER.info("Issue list: " + issue);
         }

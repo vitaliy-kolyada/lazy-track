@@ -1,10 +1,10 @@
-package dao;
+package lazy_track.service;
 
-import model.Sprint;
+import lazy_track.model.Sprint;
 
 import java.util.List;
 
-public interface SprintDao {
+public interface SprintService {
     void add(Sprint sprint);
 
     void update(Sprint sprint);

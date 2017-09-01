@@ -1,7 +1,6 @@
-package dao;
+package lazy_track.dao;
 
-import model.Issue;
-import model.Sprint;
+import lazy_track.model.Sprint;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -56,7 +55,7 @@ public class SprintDaoImpl implements SprintDao {
     @SuppressWarnings("unchecked")
     public List<Sprint> list() {
         Session session = sessionFactory.getCurrentSession();
-        List<Sprint> sprints = session.createQuery("from model.Sprint").list();
+        List<Sprint> sprints = session.createQuery("from lazy_track.model.Sprint").list();
         for (Sprint sprint : sprints) {
             LOGGER.info("Sprint list: " + sprint);
         }

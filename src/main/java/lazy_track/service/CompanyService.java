@@ -1,10 +1,10 @@
-package dao;
+package lazy_track.service;
 
-import model.Company;
+import lazy_track.model.Company;
 
 import java.util.List;
 
-public interface CompanyDao {
+public interface CompanyService {
     void add(Company company);
 
     void update(Company company);

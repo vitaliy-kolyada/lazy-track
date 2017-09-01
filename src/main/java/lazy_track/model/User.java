@@ -1,4 +1,4 @@
-package model;
+package lazy_track.model;
 
 import javax.persistence.*;
 

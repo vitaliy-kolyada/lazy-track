@@ -1,18 +1,15 @@
-package model;
+package lazy_track.model;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "projects")
-public class Project {
+@Table(name = "user_stories")
+public class UserStory {
 
     @Id
-    @Column(name = "idproject")
+    @Column(name = "iduser_storie")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(name = "company")
-    private Company company;
 
     @Column(name = "name")
     private String name;
@@ -20,18 +17,17 @@ public class Project {
     @Column(name = "description")
     private String description;
 
-    public Project() {
+    @Column(name = "project")
+    private Project project;
+
+    public UserStory() {
     }
 
-    public Project(String name) {
-        this.name = name;
-    }
-
-    public Project(int id, Company company, String name, String description) {
+    public UserStory(int id, String name, String description, Project project) {
         this.id = id;
-        this.company = company;
         this.name = name;
         this.description = description;
+        this.project = project;
     }
 
     public int getId() {
@@ -40,14 +36,6 @@ public class Project {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
     }
 
     public String getName() {
@@ -64,5 +52,13 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

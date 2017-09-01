@@ -1,6 +1,6 @@
-package dao;
+package lazy_track.dao;
 
-import model.Project;
+import lazy_track.model.Project;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class ProjectDaoImpl implements ProjectDao {
     @SuppressWarnings("unchecked")
     public List<Project> list() {
         Session session = sessionFactory.getCurrentSession();
-        List<Project> projects = session.createQuery("from model.Project").list();
+        List<Project> projects = session.createQuery("from lazy_track.model.Project").list();
         for (Project project : projects) {
             LOGGER.info("Project list: " + project);
         }

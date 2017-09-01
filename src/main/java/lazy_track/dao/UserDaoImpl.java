@@ -1,6 +1,6 @@
-package dao;
+package lazy_track.dao;
 
-import model.User;
+import lazy_track.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
     @SuppressWarnings("unchecked")
     public List<User> list() {
         Session session = sessionFactory.getCurrentSession();
-        List<User> users = session.createQuery("from model.User").list();
+        List<User> users = session.createQuery("from lazy_track.model.User").list();
         for (User user : users) {
             LOGGER.info("Users list: " + user);
         }

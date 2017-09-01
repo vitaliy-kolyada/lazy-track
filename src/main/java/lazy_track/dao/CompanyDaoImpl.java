@@ -1,6 +1,6 @@
-package dao;
+package lazy_track.dao;
 
-import model.Company;
+import lazy_track.model.Company;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ public class CompanyDaoImpl implements CompanyDao {
     @SuppressWarnings("unchecked")
     public List<Company> list() {
         Session session = sessionFactory.getCurrentSession();
-        List<Company> companies = session.createQuery("from model.Company").list();
+        List<Company> companies = session.createQuery("from lazy_track.model.Company").list();
         for (Company company : companies) {
             LOGGER.info("Company list: " + company);
         }
