@@ -1,27 +1,29 @@
 package lazy_track.model;
 
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @Column(name = "idusers")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "responsibilities")
+    private int responsibilities;
+
+    @Column(name = "company")
+    private Company company;
+
     @Column(name = "login")
     private String login;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "responsibilities")
-    private int responsibilities;
-
-    @Column(name = "company")
-    private int company;
 
     @Column(name = "name")
     private String name;
@@ -36,23 +38,21 @@ public class User {
     private String position;
 
     @Column(name = "project")
-    private int project;
+    private Project project;
 
     public User() {
     }
 
-    public User(int id, String login, String password, int responsibilities, int company,
-                String name, String eMail, String phone, String position, int project) {
-        this.id = id;
+    public User(int responsibilities, Company company, String login, String password, String name, String eMail, String phone, String position, Project project) {
+        this.responsibilities = responsibilities;
+        this.company = company;
         this.login = login;
         this.password = password;
-        this.company = company;
         this.name = name;
         this.eMail = eMail;
         this.phone = phone;
         this.position = position;
         this.project = project;
-        this.responsibilities = responsibilities;
     }
 
     public int getId() {
@@ -87,11 +87,11 @@ public class User {
         this.responsibilities = responsibilities;
     }
 
-    public int getCompany() {
+    public Company getCompany() {
         return company;
     }
 
-    public void setCompany(int company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
@@ -127,11 +127,27 @@ public class User {
         this.position = position;
     }
 
-    public int getProject() {
+    public Project getProject() {
         return project;
     }
 
-    public void setProject(int project) {
+    public void setProject(Project project) {
         this.project = project;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", responsibilities=" + responsibilities +
+                ", company=" + company +
+                ", name='" + name + '\'' +
+                ", eMail='" + eMail + '\'' +
+                ", phone='" + phone + '\'' +
+                ", position='" + position + '\'' +
+                ", project=" + project +
+                '}';
     }
 }

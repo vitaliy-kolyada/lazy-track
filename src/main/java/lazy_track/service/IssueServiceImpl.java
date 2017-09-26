@@ -3,11 +3,13 @@ package lazy_track.service;
 import lazy_track.dao.IssueDao;
 import lazy_track.model.Issue;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class IssueServiceImpl implements IssueService {
+
     private IssueDao issueDao;
 
     public void setIssueDao(IssueDao issueDao) {
@@ -15,27 +17,32 @@ public class IssueServiceImpl implements IssueService {
     }
 
     @Override
-    public void add(Issue issue) {
-        issueDao.add(issue);
+    @Transactional
+    public void addIssue(Issue issue) {
+        issueDao.addIssue(issue);
     }
 
     @Override
-    public void update(Issue issue) {
-        issueDao.update(issue);
+    @Transactional
+    public void updateIssue(Issue issue) {
+        issueDao.updateIssue(issue);
     }
 
     @Override
-    public void remove(int id) {
-        issueDao.remove(id);
+    @Transactional
+    public void removeIssue(int id) {
+        issueDao.removeIssue(id);
     }
 
     @Override
-    public Issue get(int id) {
-        return issueDao.get(id);
+    @Transactional
+    public Issue getIssueById(int id) {
+        return issueDao.getIssueById(id);
     }
 
     @Override
-    public List<Issue> list() {
-        return issueDao.list();
+    @Transactional
+    public List<Issue> listIssues() {
+        return issueDao.listIssues();
     }
 }

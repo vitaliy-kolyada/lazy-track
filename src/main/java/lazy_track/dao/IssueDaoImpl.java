@@ -11,7 +11,8 @@ import java.util.List;
 
 @Repository
 public class IssueDaoImpl implements IssueDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IssueDaoImpl.class);
+    public static Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -19,44 +20,45 @@ public class IssueDaoImpl implements IssueDao {
     }
 
     @Override
-    public void add(Issue issue) {
+    public void addIssue(Issue issue) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(issue);
-        LOGGER.info("Issue successfully added. Issue details: " + issue);
+        LOGGER.info("Issue added:" + issue);
     }
 
     @Override
-    public void update(Issue issue) {
+    public void updateIssue(Issue issue) {
         Session session = sessionFactory.getCurrentSession();
         session.update(issue);
-        LOGGER.info("Issue successfully updated. Issue details: " + issue);
+        LOGGER.info("Issue updated:" + issue);
     }
 
     @Override
-    public void remove(int id) {
+    public void removeIssue(int id) {
         Session session = sessionFactory.getCurrentSession();
         Issue issue = (Issue) session.load(Issue.class, id);
+
         if (issue != null) {
             session.delete(issue);
         }
-        LOGGER.info("Issue successfully removed. Issue details: " + issue);
+        LOGGER.info("Issue deleted: " + issue);
     }
 
     @Override
-    public Issue get(int id) {
+    public Issue getIssueById(int id) {
         Session session = sessionFactory.getCurrentSession();
         Issue issue = (Issue) session.load(Issue.class, id);
-        LOGGER.info("Issue successfully loaded. Issue details: " + issue);
+        LOGGER.info("Issue loaded:" + issue);
         return issue;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Issue> list() {
+    public List<Issue> listIssues() {
         Session session = sessionFactory.getCurrentSession();
         List<Issue> issues = session.createQuery("from lazy_track.model.Issue").list();
-        for (Issue issue : issues) {
-            LOGGER.info("Issue list: " + issue);
+        for (Issue i : issues) {
+            LOGGER.info("Issue list:" + i);
         }
         return issues;
     }

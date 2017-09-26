@@ -2,14 +2,15 @@ package lazy_track.controller;
 
 import lazy_track.model.Company;
 import lazy_track.service.CompanyService;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class CompanyController {
@@ -21,40 +22,56 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-
-    @RequestMapping(value = "companies", method = RequestMethod.GET)
-    public String listCompanies(Model model) {
-        model.addAttribute("company", new Company());
-        model.addAttribute("listCompanies", companyService.list());
-        return "companies";
-    }
-
-    @RequestMapping(value = "/company/add", method = RequestMethod.POST)
-    public String addCompany(@ModelAttribute("company") Company company) {
+    @RequestMapping(value = "/company", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<Company> addCompany(@RequestBody Company company) {
         if (company.getId() == 0) {
-            companyService.add(company);
+            companyService.addCompany(company);
         } else {
-            companyService.update(company);
+            companyService.updateCompany(company);
         }
-        return "redirect:/company";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping("/remove/{id}")
-    public String removeCompany(@PathVariable("id") int id) {
-        companyService.remove(id);
-        return "redirect:/companies";
+    @RequestMapping(value = "/company", method = RequestMethod.PUT)
+    public @ResponseBody
+    ResponseEntity<Company> updateCompany(@RequestBody Company company) {
+        try {
+            companyService.updateCompany(company);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping("edit/{id}")
-    public String editCompany(@PathVariable("id") int id, Model model) {
-        model.addAttribute("company", companyService.get(id));
-        model.addAttribute("listCompanies", companyService.list());
-        return "companies";
+    @RequestMapping(value = "/company/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    ResponseEntity<Company> removeCompany(@PathVariable("id") int id) {
+        try {
+            companyService.removeCompany(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ObjectNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping("company/{id}")
-    public String companyData(@PathVariable("id") int id, Model model) {
-        model.addAttribute("company", companyService.get(id));
-        return "company";
+    @RequestMapping(value = "company/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    ResponseEntity<Company> getCompanyById(@PathVariable("id") int id) {
+        Company company;
+        try {
+            company = companyService.getCompanyById(id);
+            return new ResponseEntity<>(company, HttpStatus.OK);
+        } catch (ObjectNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @RequestMapping(value = "company", method = RequestMethod.GET)
+    public @ResponseBody
+    ResponseEntity<List<Company>> listCompanies() {
+        List<Company> companyList = companyService.listCompanies();
+        return new ResponseEntity<>(companyList, HttpStatus.OK);
     }
 }

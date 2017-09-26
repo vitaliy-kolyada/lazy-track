@@ -11,53 +11,54 @@ import java.util.List;
 
 @Repository
 public class SprintDaoImpl implements SprintDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SprintDaoImpl.class);
+    public static Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-
     @Override
-    public void add(Sprint sprint) {
+    public void addSprint(Sprint sprint) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(sprint);
-        LOGGER.info("Sprint successfully added. Sprint details: " + sprint);
+        LOGGER.info("Sprint added:" + sprint);
     }
 
     @Override
-    public void update(Sprint sprint) {
+    public void updateSprint(Sprint sprint) {
         Session session = sessionFactory.getCurrentSession();
         session.update(sprint);
-        LOGGER.info("Sprint successfully updated. Sprint details: " + sprint);
+        LOGGER.info("Sprint updated:" + sprint);
     }
 
     @Override
-    public void remove(int id) {
+    public void removeSprint(int id) {
         Session session = sessionFactory.getCurrentSession();
         Sprint sprint = (Sprint) session.load(Sprint.class, id);
+
         if (sprint != null) {
             session.delete(sprint);
         }
-        LOGGER.info("Sprint successfully removed. Sprint details: " + sprint);
+        LOGGER.info("Sprint deleted: " + sprint);
     }
 
     @Override
-    public Sprint get(int id) {
+    public Sprint getSprintById(int id) {
         Session session = sessionFactory.getCurrentSession();
         Sprint sprint = (Sprint) session.load(Sprint.class, id);
-        LOGGER.info("Sprint successfully loaded. Sprint details: " + sprint);
+        LOGGER.info("Sprint loaded:" + sprint);
         return sprint;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Sprint> list() {
+    public List<Sprint> listSprints() {
         Session session = sessionFactory.getCurrentSession();
         List<Sprint> sprints = session.createQuery("from lazy_track.model.Sprint").list();
-        for (Sprint sprint : sprints) {
-            LOGGER.info("Sprint list: " + sprint);
+        for (Sprint s : sprints) {
+            LOGGER.info("Sprint list:" + s);
         }
         return sprints;
     }

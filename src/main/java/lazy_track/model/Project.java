@@ -1,10 +1,11 @@
 package lazy_track.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "projects")
-public class Project {
+public class Project implements Serializable {
 
     @Id
     @Column(name = "idproject")
@@ -23,12 +24,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name) {
-        this.name = name;
-    }
-
-    public Project(int id, Company company, String name, String description) {
-        this.id = id;
+    public Project(Company company, String name, String description) {
         this.company = company;
         this.name = name;
         this.description = description;
@@ -64,5 +60,15 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", company=" + company +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

@@ -1,9 +1,11 @@
 package lazy_track.model;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "issues")
-public class Issue {
+public class Issue implements Serializable {
 
     @Id
     @Column(name = "idissue")
@@ -33,10 +35,24 @@ public class Issue {
 
     @Column(name = "sign")
     private User sign;
+
     @Column(name = "story_points")
     private int storyPoints;
 
+
     public Issue() {
+    }
+
+    public Issue(Sprint sprint, String name, User createdBy, int priority, int type, int state, int severity, User sign, int storyPoints) {
+        this.sprint = sprint;
+        this.name = name;
+        this.createdBy = createdBy;
+        this.priority = priority;
+        this.type = type;
+        this.state = state;
+        this.severity = severity;
+        this.sign = sign;
+        this.storyPoints = storyPoints;
     }
 
     public int getSeverity() {
@@ -117,5 +133,21 @@ public class Issue {
 
     public void setStoryPoints(int storyPoints) {
         this.storyPoints = storyPoints;
+    }
+
+    @Override
+    public String toString() {
+        return "Issue{" +
+                "id=" + id +
+                ", sprint=" + sprint +
+                ", name='" + name + '\'' +
+                ", createdBy=" + createdBy +
+                ", priority=" + priority +
+                ", type=" + type +
+                ", state=" + state +
+                ", severity=" + severity +
+                ", sign=" + sign +
+                ", storyPoints=" + storyPoints +
+                '}';
     }
 }

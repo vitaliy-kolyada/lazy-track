@@ -11,7 +11,8 @@ import java.util.List;
 
 @Repository
 public class CompanyDaoImpl implements CompanyDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+    public static Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -19,45 +20,45 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public void add(Company company) {
+    public void addCompany(Company company) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(company);
-        LOGGER.info("Company successfully added. Company details: " + company);
+        LOGGER.info("Company added:" + company);
     }
 
     @Override
-    public void update(Company company) {
+    public void updateCompany(Company company) {
         Session session = sessionFactory.getCurrentSession();
         session.update(company);
-        LOGGER.info("Company successfully updated. Company details: " + company);
+        LOGGER.info("Company updated:" + company);
     }
 
     @Override
-    public void remove(int id) {
+    public void removeCompany(int id) {
         Session session = sessionFactory.getCurrentSession();
         Company company = (Company) session.load(Company.class, id);
+
         if (company != null) {
             session.delete(company);
         }
-        LOGGER.info("Company successfully removed. Company details: " + company);
-
+        LOGGER.info("Company deleted: " + company);
     }
 
     @Override
-    public Company get(int id) {
+    public Company getCompanyById(int id) {
         Session session = sessionFactory.getCurrentSession();
         Company company = (Company) session.load(Company.class, id);
-        LOGGER.info("Company successfully loaded. Company details: " + company);
+        LOGGER.info("Company loaded:" + company);
         return company;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Company> list() {
+    public List<Company> listCompanies() {
         Session session = sessionFactory.getCurrentSession();
         List<Company> companies = session.createQuery("from lazy_track.model.Company").list();
-        for (Company company : companies) {
-            LOGGER.info("Company list: " + company);
+        for (Company c : companies) {
+            LOGGER.info("Company list:" + c);
         }
         return companies;
     }

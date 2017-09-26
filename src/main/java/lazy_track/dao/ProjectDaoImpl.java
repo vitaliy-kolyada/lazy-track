@@ -11,53 +11,55 @@ import java.util.List;
 
 @Repository
 public class ProjectDaoImpl implements ProjectDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+
+    public static Logger LOGGER = LoggerFactory.getLogger(ProjectDaoImpl.class);
+
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
-
     @Override
-    public void add(Project project) {
+    public void addProject(Project project) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(project);
-        LOGGER.info("Project successfully added. Project details: " + project);
+        LOGGER.info("Project added:" + project);
     }
 
     @Override
-    public void update(Project project) {
+    public void updateProject(Project project) {
         Session session = sessionFactory.getCurrentSession();
         session.update(project);
-        LOGGER.info("Project successfully updated. Project details: " + project);
+        LOGGER.info("Project updated:" + project);
     }
 
     @Override
-    public void remove(int id) {
+    public void removeProject(int id) {
         Session session = sessionFactory.getCurrentSession();
         Project project = (Project) session.load(Project.class, id);
+
         if (project != null) {
             session.delete(project);
         }
-        LOGGER.info("Project successfully removed. Project details: " + project);
+        LOGGER.info("Project deleted: " + project);
     }
 
     @Override
-    public Project get(int id) {
+    public Project getProjectById(int id) {
         Session session = sessionFactory.getCurrentSession();
         Project project = (Project) session.load(Project.class, id);
-        LOGGER.info("Project successfully loaded. Project details: " + project);
+        LOGGER.info("Project loaded:" + project);
         return project;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Project> list() {
+    public List<Project> listProjects() {
         Session session = sessionFactory.getCurrentSession();
         List<Project> projects = session.createQuery("from lazy_track.model.Project").list();
-        for (Project project : projects) {
-            LOGGER.info("Project list: " + project);
+        for (Project p : projects) {
+            LOGGER.info("Project list:" + p);
         }
         return projects;
     }

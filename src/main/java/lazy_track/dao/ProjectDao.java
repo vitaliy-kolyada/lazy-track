@@ -5,13 +5,13 @@ import lazy_track.model.Project;
 import java.util.List;
 
 public interface ProjectDao {
-    void add(Project project);
+    void addProject(Project project);
 
-    void update(Project project);
+    void updateProject(Project project);
 
-    void remove(int id);
+    void removeProject(int id);
 
-    Project get(int id);
+    Project getProjectById(int id);
 
-    List<Project> list();
+    List<Project> listProjects();
 }

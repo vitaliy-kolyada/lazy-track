@@ -17,31 +17,31 @@ public class UserStoryServiceImpl implements UserStoryService {
 
     @Override
     @Transactional
-    public void add(UserStory userStory) {
-        userStoryDao.add(userStory);
+    public void addUserStory(UserStory userStory) {
+        userStoryDao.addUserStory(userStory);
     }
 
     @Override
     @Transactional
-    public void update(UserStory userStory) {
-        userStoryDao.update(userStory);
+    public void updateUserStory(UserStory userStory) {
+        userStoryDao.updateUserStory(userStory);
     }
 
     @Override
     @Transactional
-    public void remove(int id) {
-        userStoryDao.remove(id);
+    public void removeUserStory(int id) {
+        userStoryDao.removeUserStory(id);
     }
 
     @Override
     @Transactional
-    public UserStory get(int id) {
-        return userStoryDao.get(id);
+    public UserStory getUserStoryById(int id) {
+        return userStoryDao.getUserStoryById(id);
     }
 
     @Override
     @Transactional
-    public List<UserStory> list() {
-        return userStoryDao.list();
+    public List<UserStory> listUserStories() {
+        return userStoryDao.listUserStories();
     }
 }

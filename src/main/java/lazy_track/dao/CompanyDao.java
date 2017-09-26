@@ -5,13 +5,13 @@ import lazy_track.model.Company;
 import java.util.List;
 
 public interface CompanyDao {
-    void add(Company company);
+    void addCompany(Company company);
 
-    void update(Company company);
+    void updateCompany(Company company);
 
-    void remove(int id);
+    void removeCompany(int id);
 
-    Company get(int id);
+    Company getCompanyById(int id);
 
-    public List<Company> list();
+    List<Company> listCompanies();
 }

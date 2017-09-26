@@ -1,14 +1,17 @@
 package lazy_track.model;
 
+import lazy_track.dao.LocalDatePersistenceConverter;
+
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "sprints")
-public class Sprint {
+public class Sprint implements Serializable {
 
     @Id
-    @Column(name = "idissue")
+    @Column(name = "idsprint")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -19,15 +22,16 @@ public class Sprint {
     private String goal;
 
     @Column(name = "date")
-    private LocalDateTime date;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    private LocalDate date;
+
     @Column(name = "user_story")
     private UserStory userStory;
 
     public Sprint() {
     }
 
-    public Sprint(int id, String name, String goal, LocalDateTime date, UserStory userStory) {
-        this.id = id;
+    public Sprint(String name, String goal, LocalDate date, UserStory userStory) {
         this.name = name;
         this.goal = goal;
         this.date = date;
@@ -58,11 +62,11 @@ public class Sprint {
         this.goal = goal;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -72,5 +76,16 @@ public class Sprint {
 
     public void setUserStory(UserStory userStory) {
         this.userStory = userStory;
+    }
+
+    @Override
+    public String toString() {
+        return "Sprint{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", goal='" + goal + '\'' +
+                ", date=" + date +
+                ", userStory=" + userStory +
+                '}';
     }
 }

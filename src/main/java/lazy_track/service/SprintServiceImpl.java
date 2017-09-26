@@ -17,31 +17,31 @@ public class SprintServiceImpl implements SprintService {
 
     @Override
     @Transactional
-    public void add(Sprint sprint) {
-        sprintDao.add(sprint);
+    public void addSprint(Sprint sprint) {
+        sprintDao.addSprint(sprint);
     }
 
     @Override
     @Transactional
-    public void update(Sprint sprint) {
-        sprintDao.update(sprint);
+    public void updateSprint(Sprint sprint) {
+        sprintDao.updateSprint(sprint);
     }
 
     @Override
     @Transactional
-    public void remove(int id) {
-        sprintDao.remove(id);
+    public void removeSprint(int id) {
+        sprintDao.removeSprint(id);
     }
 
     @Override
     @Transactional
-    public Sprint get(int id) {
-        return sprintDao.get(id);
+    public Sprint getSprintById(int id) {
+        return sprintDao.getSprintById(id);
     }
 
     @Override
     @Transactional
-    public List<Sprint> list() {
-        return sprintDao.list();
+    public List<Sprint> listSprints() {
+        return sprintDao.listSprints();
     }
 }

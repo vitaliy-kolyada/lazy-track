@@ -1,24 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="lazy_track"/>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
 
-    </bean><!-- Database Information -->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <!-- Database Information -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/lazy_tracker"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/lazy_tracker?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false"/>
         <property name="username" value="root"/>
         <property name="password" value="Supermario963"/>
+    </bean>
 
-    </bean><!-- Hibernate 4 SessionFactory Bean definition -->
-    <bean id="hibernate4AnnotatedSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <!-- Hibernate 4 SessionFactory Bean definition -->
+    <bean id="hibernate4AnnotatedSessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="annotatedClasses">
             <list>
@@ -37,56 +49,116 @@
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
+    </bean>
 
-    </bean><!--BookDao and BookService beans-->
+    <!--Transaction Manager bean-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
+    <!--CompanyDao and CompanyService beans-->
     <bean id="companyDao" class="lazy_track.dao.CompanyDaoImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-    <bean id="issueDao" class="lazy_track.dao.IssueDaoImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-    <bean id="projectDao" class="lazy_track.dao.ProjectDaoImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-    <bean id="sprintDao" class="lazy_track.dao.SprintDaoImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-    <bean id="userDao" class="lazy_track.dao.UserDaoImpl">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-    </bean>
-
-    <bean id="userStoryDao" class="lazy_track.dao.UserStoryDaoImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </bean>
 
     <bean id="companyService" class="lazy_track.service.CompanyServiceImpl">
         <property name="companyDao" ref="companyDao"/>
     </bean>
+
+    <context:component-scan base-package="lazy_track"/>
+
+    <tx:annotation-driven/>
+
+    <!--IssueDao and IssueService beans-->
+    <bean id="issueDao" class="lazy_track.dao.IssueDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
     <bean id="issueService" class="lazy_track.service.IssueServiceImpl">
         <property name="issueDao" ref="issueDao"/>
     </bean>
+
+    <context:component-scan base-package="lazy_track"/>
+
+    <tx:annotation-driven/>
+
+    <!--ProjectDao and ProjectService beans-->
+    <bean id="projectDao" class="lazy_track.dao.ProjectDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
     <bean id="projectService" class="lazy_track.service.ProjectServiceImpl">
         <property name="projectDao" ref="projectDao"/>
     </bean>
+    <context:component-scan base-package="lazy_track"/>
+
+    <tx:annotation-driven/>
+
+    <!--SprintDao and SprintService beans-->
+    <bean id="sprintDao" class="lazy_track.dao.SprintDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
     <bean id="sprintService" class="lazy_track.service.SprintServiceImpl">
         <property name="sprintDao" ref="sprintDao"/>
     </bean>
+
+    <context:component-scan base-package="lazy_track"/>
+
+    <tx:annotation-driven/>
+
+    <!--UserDao and UserService beans-->
+    <bean id="userDao" class="lazy_track.dao.UserDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
     <bean id="userService" class="lazy_track.service.UserServiceImpl">
         <property name="userDao" ref="userDao"/>
     </bean>
+    <context:component-scan base-package="lazy_track"/>
+
+    <tx:annotation-driven/>
+
+    <!--UserStoryDao and UserStoryService beans-->
+    <bean id="userStoryDao" class="lazy_track.dao.UserStoryDaoImpl">
+        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </bean>
+
     <bean id="userStoryService" class="lazy_track.service.UserStoryServiceImpl">
         <property name="userStoryDao" ref="userStoryDao"/>
     </bean>
-
     <context:component-scan base-package="lazy_track"/>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+
+    <tx:annotation-driven/>
+
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            </bean>
+            <!--<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>-->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="jacksonObjectMapper"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <bean id="jacksonObjectMapper" class="lazy_track.service.MyJsonMapper"/>
+
+    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the/WEB-INF/views directory -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
-    <mvc:default-servlet-handler/>
-    <mvc:annotation-driven/>
+
+    <!-- Configure to plugin JSON as request and response in method handler -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="jsonMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Configure bean to convert JSON to POJO and vice versa -->
+    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    </bean>
 </beans>

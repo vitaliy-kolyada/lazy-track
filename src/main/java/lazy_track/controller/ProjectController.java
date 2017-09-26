@@ -2,14 +2,15 @@ package lazy_track.controller;
 
 import lazy_track.model.Project;
 import lazy_track.service.ProjectService;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class ProjectController {
@@ -21,40 +22,56 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-
-    @RequestMapping(value = "projects", method = RequestMethod.GET)
-    public String listProjects(Model model) {
-        model.addAttribute("project", new Project());
-        model.addAttribute("listProjects", projectService.list());
-        return "listProjects";
-    }
-
-    @RequestMapping(value = "/project/add", method = RequestMethod.POST)
-    public String addProject(@ModelAttribute("project") Project project) {
+    @RequestMapping(value = "/project", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<Project> addProject(@RequestBody Project project) {
         if (project.getId() == 0) {
-            projectService.add(project);
+            projectService.addProject(project);
         } else {
-            projectService.update(project);
+            projectService.updateProject(project);
         }
-        return "redirect:/project";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping("/remove/{id}")
-    public String removeProject(@PathVariable("id") int id) {
-        projectService.remove(id);
-        return "redirect:/projects";
+    @RequestMapping(value = "/project", method = RequestMethod.PUT)
+    public @ResponseBody
+    ResponseEntity<Project> updateCompany(@RequestBody Project project) {
+        try {
+            projectService.updateProject(project);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping("edit/{id}")
-    public String editProject(@PathVariable("id") int id, Model model) {
-        model.addAttribute("project", projectService.get(id));
-        model.addAttribute("listProject", projectService.list());
-        return "projects";
+    @RequestMapping(value = "/project/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    ResponseEntity<Project> removeProject(@PathVariable("id") int id) {
+        try {
+            projectService.removeProject(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ObjectNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @RequestMapping("project/{id}")
-    public String projectData(@PathVariable("id") int id, Model model) {
-        model.addAttribute("project", projectService.get(id));
-        return "project";
+    @RequestMapping(value = "project/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    ResponseEntity<Project> getProjectById(@PathVariable("id") int id) {
+        Project project;
+        try {
+            project = projectService.getProjectById(id);
+            return new ResponseEntity<>(project, HttpStatus.OK);
+        } catch (ObjectNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @RequestMapping(value = "project", method = RequestMethod.GET)
+    public @ResponseBody
+    ResponseEntity<List<Project>> listCompanies() {
+        List<Project> projectList = projectService.listProjects();
+        return new ResponseEntity<>(projectList, HttpStatus.OK);
     }
 }

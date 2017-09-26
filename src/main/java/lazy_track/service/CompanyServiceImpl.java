@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
+
     private CompanyDao companyDao;
 
     public void setCompanyDao(CompanyDao companyDao) {
@@ -17,31 +18,31 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     @Transactional
-    public void add(Company company) {
-        companyDao.add(company);
+    public void addCompany(Company company) {
+        companyDao.addCompany(company);
     }
 
     @Override
     @Transactional
-    public void update(Company company) {
-        companyDao.update(company);
+    public void updateCompany(Company company) {
+        companyDao.updateCompany(company);
     }
 
     @Override
     @Transactional
-    public void remove(int id) {
-
+    public void removeCompany(int id) {
+        companyDao.removeCompany(id);
     }
 
     @Override
     @Transactional
-    public Company get(int id) {
-        return companyDao.get(id);
+    public Company getCompanyById(int id) {
+        return companyDao.getCompanyById(id);
     }
 
     @Override
     @Transactional
-    public List<Company> list() {
-        return companyDao.list();
+    public List<Company> listCompanies() {
+        return companyDao.listCompanies();
     }
 }

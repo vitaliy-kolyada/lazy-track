@@ -1,14 +1,16 @@
 package lazy_track.model;
 
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_stories")
-public class UserStory {
+public class UserStory implements Serializable {
 
     @Id
-    @Column(name = "iduser_storie")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "iduser_storie")
     private int id;
 
     @Column(name = "name")
@@ -23,8 +25,7 @@ public class UserStory {
     public UserStory() {
     }
 
-    public UserStory(int id, String name, String description, Project project) {
-        this.id = id;
+    public UserStory(String name, String description, Project project) {
         this.name = name;
         this.description = description;
         this.project = project;
@@ -60,5 +61,15 @@ public class UserStory {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    @Override
+    public String toString() {
+        return "UserStory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", project=" + project +
+                '}';
     }
 }

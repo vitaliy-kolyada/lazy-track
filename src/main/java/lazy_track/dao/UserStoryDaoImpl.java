@@ -11,7 +11,8 @@ import java.util.List;
 
 @Repository
 public class UserStoryDaoImpl implements UserStoryDao {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserStoryDaoImpl.class);
+    public static Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+
     private SessionFactory sessionFactory;
 
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -19,45 +20,46 @@ public class UserStoryDaoImpl implements UserStoryDao {
     }
 
     @Override
-    public void add(UserStory userStory) {
+    public void addUserStory(UserStory userStory) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(userStory);
-        LOGGER.info("User story successfully added. User story details: " + userStory);
+        LOGGER.info("User story added:" + userStory);
     }
 
     @Override
-    public void update(UserStory userStory) {
+    public void updateUserStory(UserStory userStory) {
         Session session = sessionFactory.getCurrentSession();
         session.update(userStory);
-        LOGGER.info("User story successfully updated. User story details: " + userStory);
+        LOGGER.info("User story updated:" + userStory);
     }
 
     @Override
-    public void remove(int id) {
+    public void removeUserStory(int id) {
         Session session = sessionFactory.getCurrentSession();
         UserStory userStory = (UserStory) session.load(UserStory.class, id);
+
         if (userStory != null) {
             session.delete(userStory);
         }
-        LOGGER.info("User story successfully removed. User story details: " + userStory);
+        LOGGER.info("User story deleted: " + userStory);
     }
 
     @Override
-    public UserStory get(int id) {
+    public UserStory getUserStoryById(int id) {
         Session session = sessionFactory.getCurrentSession();
         UserStory userStory = (UserStory) session.load(UserStory.class, id);
-        LOGGER.info("User story successfully loaded. User story details: " + userStory);
+        LOGGER.info("User story loaded:" + userStory);
         return userStory;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<UserStory> list() {
+    public List<UserStory> listUserStories() {
         Session session = sessionFactory.getCurrentSession();
-        List<UserStory> usersStories = session.createQuery("from lazy_track.model.UserStory").list();
-        for (UserStory userStory : usersStories) {
-            LOGGER.info("Users list: " + userStory);
+        List<UserStory> userStories = session.createQuery("from lazy_track.model.UserStory").list();
+        for (UserStory us : userStories) {
+            LOGGER.info("User story list:" + us);
         }
-        return usersStories;
+        return userStories;
     }
 }

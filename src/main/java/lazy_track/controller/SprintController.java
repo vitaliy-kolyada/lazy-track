@@ -2,14 +2,15 @@ package lazy_track.controller;
 
 import lazy_track.model.Sprint;
 import lazy_track.service.SprintService;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class SprintController {
@@ -21,40 +22,56 @@ public class SprintController {
         this.sprintService = sprintService;
     }
 
+    @RequestMapping(value = "/sprint", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity<Sprint> addSprint(@RequestBody Sprint sprint) {
+        if (sprint.getId() == 0) {
+            sprintService.addSprint(sprint);
+        } else {
+            sprintService.updateSprint(sprint);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/sprint", method = RequestMethod.PUT)
+    public @ResponseBody
+    ResponseEntity<Sprint> updateSprint(@RequestBody Sprint sprint) {
+        try {
+            sprintService.updateSprint(sprint);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/sprint/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody
+    ResponseEntity<Sprint> removeSprint(@PathVariable("id") int id) {
+        try {
+            sprintService.removeSprint(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (ObjectNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "sprint/{id}", method = RequestMethod.GET)
+    public @ResponseBody
+    ResponseEntity<Sprint> getSprintById(@PathVariable("id") int id) {
+        Sprint sprint;
+        try {
+            sprint = sprintService.getSprintById(id);
+            return new ResponseEntity<>(sprint, HttpStatus.OK);
+        } catch (ObjectNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @RequestMapping(value = "sprint", method = RequestMethod.GET)
-    public String listSprints(Model model) {
-        model.addAttribute("sprint", new Sprint());
-        model.addAttribute("listSprints", sprintService.list());
-        return "sprints";
-    }
-
-    @RequestMapping(value = "/sprint/add", method = RequestMethod.POST)
-    public String addSprint(@ModelAttribute("sprint") Sprint sprint) {
-        if (sprint.getId() == 0) {
-            sprintService.add(sprint);
-        } else {
-            sprintService.update(sprint);
-        }
-        return "redirect:/sprint";
-    }
-
-    @RequestMapping("/remove/{id}")
-    public String removeSprint(@PathVariable("id") int id) {
-        sprintService.remove(id);
-        return "redirect:/sprints";
-    }
-
-    @RequestMapping("edit/{id}")
-    public String editSprint(@PathVariable("id") int id, Model model) {
-        model.addAttribute("sprint", sprintService.get(id));
-        model.addAttribute("listSprints", sprintService.list());
-        return "sprints";
-    }
-
-    @RequestMapping("sprint/{id}")
-    public String sprintData(@PathVariable("id") int id, Model model) {
-        model.addAttribute("sprint", sprintService.get(id));
-        return "sprint";
+    public @ResponseBody
+    ResponseEntity<List<Sprint>> listSprints() {
+        List<Sprint> sprintList = sprintService.listSprints();
+        return new ResponseEntity<>(sprintList, HttpStatus.OK);
     }
 }
