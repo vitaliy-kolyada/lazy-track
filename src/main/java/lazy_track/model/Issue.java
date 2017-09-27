@@ -14,7 +14,7 @@ public class Issue implements Serializable {
 
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sprint", referencedColumnName = "idsprints", nullable = false, unique = true)
+    @JoinColumn(name = "sprint", referencedColumnName = "idsprint", nullable = false, unique = true)
     private Sprint sprint;
 
     @Column(name = "name")
