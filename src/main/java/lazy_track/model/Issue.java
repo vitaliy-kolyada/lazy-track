@@ -12,13 +12,16 @@ public class Issue implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "sprint")
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "sprint", referencedColumnName = "idsprints", nullable = false, unique = true)
     private Sprint sprint;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "created_by")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", referencedColumnName = "idusers", nullable = false, unique = true)
     private User createdBy;
 
     @Column(name = "priority")
@@ -33,7 +36,8 @@ public class Issue implements Serializable {
     @Column(name = "severity")
     private int severity;
 
-    @Column(name = "sign")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "sign", referencedColumnName = "idusers", nullable = false, unique = true)
     private User sign;
 
     @Column(name = "story_points")

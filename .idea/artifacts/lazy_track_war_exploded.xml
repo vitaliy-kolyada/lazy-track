@@ -9,7 +9,6 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.0.3.RELEASE" />
-          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.0.3.RELEASE" />
@@ -42,6 +41,11 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.4.1" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.4.0" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.4.1" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.2.1.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.1.RELEASE" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.6" />
         </element>
       </element>
       <element id="directory" name="META-INF">

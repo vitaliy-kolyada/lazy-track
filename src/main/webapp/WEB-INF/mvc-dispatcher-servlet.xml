@@ -138,42 +138,14 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <!--&lt;!&ndash;Custom Jackson mapper&ndash;&gt;-->
-    <!--<bean id="jacksonObjectMapper" class="lazy_track.service.MyJsonMapper"/>-->
-
-    <!--<mvc:annotation-driven>-->
-        <!--<mvc:message-converters>-->
-            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
-            <!--</bean>-->
-            <!--<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>-->
-            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-                <!--<property name="objectMapper" ref="jacksonObjectMapper"/>-->
-            <!--</bean>-->
-        <!--</mvc:message-converters>-->
-    <!--</mvc:annotation-driven>-->
-
-
-    <!--&lt;!&ndash; Configure to plugin JSON as request and response in method handler &ndash;&gt;-->
-    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
-        <!--<property name="messageConverters">-->
-            <!--<list>-->
-                <!--<ref bean="jsonMessageConverter"/>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; Configure bean to convert JSON to POJO and vice versa &ndash;&gt;-->
-    <!--<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-    <!--</bean>-->
-
+    <!--Jackson mapping-->
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper" ref="jacksonObjectMapper" />
+                <property name="objectMapper" ref="jacksonObjectMapper"/>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-
-    <bean id="jacksonObjectMapper" class="lazy_track.service.MyJsonMapper" />
+    <bean id="jacksonObjectMapper" class="lazy_track.service.MyJsonMapper"/>
 </beans>

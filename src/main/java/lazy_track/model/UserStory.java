@@ -19,7 +19,8 @@ public class UserStory implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "project")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "project", referencedColumnName = "idprojects", nullable = false, unique = true)
     private Project project;
 
     public UserStory() {

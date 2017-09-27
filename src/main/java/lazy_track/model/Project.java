@@ -12,7 +12,8 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "company")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "company", referencedColumnName = "idcompanies", nullable = false, unique = true)
     private Company company;
 
     @Column(name = "name")

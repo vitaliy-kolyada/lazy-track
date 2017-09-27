@@ -1,5 +1,6 @@
 package lazy_track.controller;
 
+import lazy_track.model.Company;
 import lazy_track.model.Project;
 import lazy_track.service.ProjectService;
 import org.hibernate.ObjectNotFoundException;
