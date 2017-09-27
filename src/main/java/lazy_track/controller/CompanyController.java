@@ -6,6 +6,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class CompanyController {
         this.companyService = companyService;
     }
 
-    @RequestMapping(value = "/company", method = RequestMethod.POST)
+    @RequestMapping(value = "/company", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Company> addCompany(@RequestBody Company company) {
         if (company.getId() == 0) {
@@ -30,7 +31,7 @@ public class CompanyController {
         } else {
             companyService.updateCompany(company);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/company", method = RequestMethod.PUT)
