@@ -14,14 +14,14 @@ public class Issue implements Serializable {
 
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sprint", referencedColumnName = "idsprint", nullable = false, unique = true)
+    @JoinColumn(name = "sprint", referencedColumnName = "idsprint")
     private Sprint sprint;
 
     @Column(name = "name")
     private String name;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", referencedColumnName = "idusers", nullable = false, unique = true)
+    @JoinColumn(name = "created_by", referencedColumnName = "idusers")
     private User createdBy;
 
     @Column(name = "priority")
@@ -37,7 +37,7 @@ public class Issue implements Serializable {
     private int severity;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sign", referencedColumnName = "idusers", nullable = false, unique = true)
+    @JoinColumn(name = "sign", referencedColumnName = "idusers")
     private User sign;
 
     @Column(name = "story_points")

@@ -13,7 +13,7 @@ public class Project implements Serializable {
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "company", referencedColumnName = "idcompanies", nullable = false, unique = true)
+    @JoinColumn(name = "company", referencedColumnName = "idcompanies")
     private Company company;
 
     @Column(name = "name")

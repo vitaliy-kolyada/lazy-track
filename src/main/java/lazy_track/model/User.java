@@ -17,7 +17,7 @@ public class User implements Serializable {
     private int responsibilities;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "company", referencedColumnName = "idcompanies", nullable = false, unique = true)
+    @JoinColumn(name = "company", referencedColumnName = "idcompanies")
     private Company company;
 
     @Column(name = "login")
@@ -39,7 +39,7 @@ public class User implements Serializable {
     private String position;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "project", referencedColumnName = "idproject", nullable = false, unique = true)
+    @JoinColumn(name = "project", referencedColumnName = "idproject")
     private Project project;
 
     public User() {

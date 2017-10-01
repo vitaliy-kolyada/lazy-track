@@ -26,7 +26,7 @@ public class Sprint implements Serializable {
     private LocalDate date;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_story", referencedColumnName = "iduser_storie", nullable = false, unique = true)
+    @JoinColumn(name = "user_story", referencedColumnName = "iduser_storie")
     private UserStory userStory;
 
     public Sprint() {

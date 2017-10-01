@@ -31,7 +31,7 @@ public class CompanyController {
         } else {
             companyService.updateCompany(company);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/company", method = RequestMethod.PUT)

@@ -20,7 +20,7 @@ public class UserStory implements Serializable {
     private String description;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "project", referencedColumnName = "idproject", nullable = false, unique = true)
+    @JoinColumn(name = "project", referencedColumnName = "idproject")
     private Project project;
 
     public UserStory() {
