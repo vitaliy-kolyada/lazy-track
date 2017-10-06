@@ -1,8 +1,10 @@
 package lazy_track.model;
 
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.persistence.*;
 import java.io.Serializable;
-
+@EnableTransactionManagement
 @Entity
 @Table(name = "projects")
 public class Project implements Serializable {
@@ -12,8 +14,7 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "company", referencedColumnName = "idcompanies")
+    @Column(name = "company")
     private Company company;
 
     @Column(name = "name")
@@ -62,7 +63,26 @@ public class Project implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Project other = (Project) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
     @Override
     public String toString() {
         return "Project{" +

@@ -2,47 +2,42 @@ package lazy_track.service;
 
 import lazy_track.dao.CompanyDao;
 import lazy_track.model.Company;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Service("companyService")
 public class CompanyServiceImpl implements CompanyService {
 
     private CompanyDao companyDao;
 
+    @Autowired
     public void setCompanyDao(CompanyDao companyDao) {
         this.companyDao = companyDao;
     }
 
-    @Override
-    @Transactional
-    public void addCompany(Company company) {
-        companyDao.addCompany(company);
+    public List<Company> findAll() {
+        return companyDao.findAll();
     }
 
-    @Override
-    @Transactional
-    public void updateCompany(Company company) {
-        companyDao.updateCompany(company);
+    public Company findById(long id) {
+        return companyDao.findById(id);
     }
 
-    @Override
-    @Transactional
-    public void removeCompany(int id) {
-        companyDao.removeCompany(id);
+    public void save(Company company) {
+        companyDao.save(company);
     }
 
-    @Override
-    @Transactional
-    public Company getCompanyById(int id) {
-        return companyDao.getCompanyById(id);
+    public void update(Company company) {
+        companyDao.update(company);
     }
 
-    @Override
-    @Transactional
-    public List<Company> listCompanies() {
-        return companyDao.listCompanies();
+    public void deleteById(long id) {
+        companyDao.deleteById(id);
+    }
+
+    public boolean isExist(Company company) {
+        return companyDao.findByName(company.getName()) != null;
     }
 }

@@ -5,13 +5,15 @@ import lazy_track.model.Issue;
 import java.util.List;
 
 public interface IssueDao {
-    void addIssue(Issue issue);
+    void update(Issue issue);
 
-    void updateIssue(Issue issue);
+    Issue findById(long id);
 
-    void removeIssue(int id);
+    void save(Issue issue);
 
-    Issue getIssueById(int id);
+    void deleteById(long id);
 
-    List<Issue> listIssues();
+    List<Issue> findAll();
+
+    Issue findByName(String name);
 }

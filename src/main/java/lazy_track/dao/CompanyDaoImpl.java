@@ -1,65 +1,47 @@
 package lazy_track.dao;
 
 import lazy_track.model.Company;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-public class CompanyDaoImpl implements CompanyDao {
-    public static Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
-
-    private SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+@Repository("companyDao")
+@Transactional
+public class CompanyDaoImpl extends AbstractDao<Long, Company> implements CompanyDao {
+    @Override
+    public void update(Company company) {
+        getSession().update(company);
     }
 
     @Override
-    public void addCompany(Company company) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(company);
-        LOGGER.info("Company added:" + company);
+    public Company findById(long id) {
+        return getByKey(id);
     }
 
     @Override
-    public void updateCompany(Company company) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(company);
-        LOGGER.info("Company updated:" + company);
+    public void save(Company company) {
+        persist(company);
     }
 
     @Override
-    public void removeCompany(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Company company = (Company) session.load(Company.class, id);
-
-        if (company != null) {
-            session.delete(company);
-        }
-        LOGGER.info("Company deleted: " + company);
-    }
-
-    @Override
-    public Company getCompanyById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Company company = (Company) session.load(Company.class, id);
-        LOGGER.info("Company loaded:" + company);
-        return company;
+    public void deleteById(long id) {
+        delete(findById(id));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Company> listCompanies() {
-        Session session = sessionFactory.getCurrentSession();
-        List<Company> companies = session.createQuery("from lazy_track.model.Company").list();
-        for (Company c : companies) {
-            LOGGER.info("Company list:" + c);
-        }
-        return companies;
+    public List<Company> findAll() {
+        Criteria criteria = createEntityCriteria();
+        return (List<Company>) criteria.list();
+    }
+
+    @Override
+    public Company findByName(String name) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("name", name));
+        return (Company) criteria.uniqueResult();
     }
 }

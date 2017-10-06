@@ -5,14 +5,16 @@ import lazy_track.model.UserStory;
 import java.util.List;
 
 public interface UserStoryDao {
-    void addUserStory(UserStory userStory);
+    void update(UserStory userStory);
 
-    void updateUserStory(UserStory userStory);
+    UserStory findById(long id);
 
-    void removeUserStory(int id);
+    void save(UserStory userStory);
 
-    UserStory getUserStoryById(int id);
+    void deleteById(long id);
 
-    List<UserStory> listUserStories();
+    List<UserStory> findAll();
+
+    UserStory findByName(String name);
 
 }

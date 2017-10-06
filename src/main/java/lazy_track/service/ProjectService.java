@@ -5,13 +5,15 @@ import lazy_track.model.Project;
 import java.util.List;
 
 public interface ProjectService {
-    void addProject(Project project);
+    Project findById(long id);
 
-    void updateProject(Project project);
+    void save(Project project);
 
-    void removeProject(int id);
+    void update(Project project);
 
-    Project getProjectById(int id);
+    void deleteById(long id);
 
-    List<Project> listProjects();
+    List<Project> findAll();
+
+    boolean isExist(Project project);
 }

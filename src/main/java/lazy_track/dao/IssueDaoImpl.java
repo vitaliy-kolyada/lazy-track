@@ -1,65 +1,48 @@
 package lazy_track.dao;
 
 import lazy_track.model.Issue;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Repository
-public class IssueDaoImpl implements IssueDao {
-    public static Logger LOGGER = LoggerFactory.getLogger(CompanyDaoImpl.class);
+@Repository("issueDao")
+@Transactional
 
-    private SessionFactory sessionFactory;
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+public class IssueDaoImpl extends AbstractDao<Long, Issue> implements IssueDao {
+    @Override
+    public void update(Issue issue) {
+        getSession().update(issue);
     }
 
     @Override
-    public void addIssue(Issue issue) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(issue);
-        LOGGER.info("Issue added:" + issue);
+    public Issue findById(long id) {
+        return getByKey(id);
     }
 
     @Override
-    public void updateIssue(Issue issue) {
-        Session session = sessionFactory.getCurrentSession();
-        session.update(issue);
-        LOGGER.info("Issue updated:" + issue);
+    public void save(Issue issue) {
+        persist(issue);
     }
 
     @Override
-    public void removeIssue(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Issue issue = (Issue) session.load(Issue.class, id);
-
-        if (issue != null) {
-            session.delete(issue);
-        }
-        LOGGER.info("Issue deleted: " + issue);
-    }
-
-    @Override
-    public Issue getIssueById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        Issue issue = (Issue) session.load(Issue.class, id);
-        LOGGER.info("Issue loaded:" + issue);
-        return issue;
+    public void deleteById(long id) {
+        delete(findById(id));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Issue> listIssues() {
-        Session session = sessionFactory.getCurrentSession();
-        List<Issue> issues = session.createQuery("from lazy_track.model.Issue").list();
-        for (Issue i : issues) {
-            LOGGER.info("Issue list:" + i);
-        }
-        return issues;
+    public List<Issue> findAll() {
+        Criteria criteria = createEntityCriteria();
+        return (List<Issue>) criteria.list();
+    }
+
+    @Override
+    public Issue findByName(String name) {
+        Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("name", name));
+        return (Issue) criteria.uniqueResult();
     }
 }

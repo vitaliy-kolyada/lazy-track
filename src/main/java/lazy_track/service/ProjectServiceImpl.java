@@ -2,46 +2,48 @@ package lazy_track.service;
 
 import lazy_track.dao.ProjectDao;
 import lazy_track.model.Project;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Service("projectService")
 public class ProjectServiceImpl implements ProjectService {
+
     private ProjectDao projectDao;
 
+    @Autowired
     public void setProjectDao(ProjectDao projectDao) {
         this.projectDao = projectDao;
     }
 
     @Override
-    @Transactional
-    public void addProject(Project project) {
-        projectDao.addProject(project);
+    public List<Project> findAll() {
+        return projectDao.findAll();
     }
 
     @Override
-    @Transactional
-    public void updateProject(Project project) {
-        projectDao.updateProject(project);
+    public Project findById(long id) {
+        return projectDao.findById(id);
     }
 
     @Override
-    @Transactional
-    public void removeProject(int id) {
-        projectDao.removeProject(id);
+    public void save(Project project) {
+        projectDao.save(project);
     }
 
     @Override
-    @Transactional
-    public Project getProjectById(int id) {
-        return projectDao.getProjectById(id);
+    public void update(Project project) {
+        projectDao.update(project);
     }
 
     @Override
-    @Transactional
-    public List<Project> listProjects() {
-        return projectDao.listProjects();
+    public void deleteById(long id) {
+        projectDao.deleteById(id);
+    }
+
+    @Override
+    public boolean isExist(Project project) {
+        return projectDao.findByName(project.getName()) != null;
     }
 }

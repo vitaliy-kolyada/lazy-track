@@ -1,17 +1,23 @@
 package lazy_track.service;
 
+
 import lazy_track.model.User;
 
 import java.util.List;
 
 public interface UserService {
-    void addUser(User user);
 
-    void updateUser(User user);
+    User findById(long id);
 
-    void removeUser(int id);
+    User findByName(String name);
 
-    User getUserById(int id);
+    void save(User user);
 
-    List<User> listUsers();
+    void update(User user);
+
+    void deleteById(long id);
+
+    List<User> findAll();
+
+    boolean isExist(User user);
 }

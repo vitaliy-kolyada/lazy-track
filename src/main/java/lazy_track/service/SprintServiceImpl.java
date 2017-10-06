@@ -2,46 +2,49 @@ package lazy_track.service;
 
 import lazy_track.dao.SprintDao;
 import lazy_track.model.Sprint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Service("sprintService")
 public class SprintServiceImpl implements SprintService {
+
     private SprintDao sprintDao;
 
+    @Autowired
     public void setSprintDao(SprintDao sprintDao) {
         this.sprintDao = sprintDao;
     }
 
     @Override
-    @Transactional
-    public void addSprint(Sprint sprint) {
-        sprintDao.addSprint(sprint);
+    public List<Sprint> findAll() {
+        return sprintDao.findAll();
     }
 
     @Override
-    @Transactional
-    public void updateSprint(Sprint sprint) {
-        sprintDao.updateSprint(sprint);
+    public Sprint findById(long id) {
+        return sprintDao.findById(id);
     }
 
     @Override
-    @Transactional
-    public void removeSprint(int id) {
-        sprintDao.removeSprint(id);
+    public void save(Sprint sprint) {
+        sprintDao.save(sprint);
     }
 
     @Override
-    @Transactional
-    public Sprint getSprintById(int id) {
-        return sprintDao.getSprintById(id);
+    public void update(Sprint sprint) {
+        sprintDao.update(sprint);
     }
 
     @Override
-    @Transactional
-    public List<Sprint> listSprints() {
-        return sprintDao.listSprints();
+    public void deleteById(long id) {
+        sprintDao.deleteById(id);
     }
+
+    @Override
+    public boolean isExist(Sprint sprint) {
+        return sprintDao.findByName(sprint.getName()) != null;
+    }
+
 }

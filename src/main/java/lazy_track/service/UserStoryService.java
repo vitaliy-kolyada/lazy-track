@@ -5,13 +5,15 @@ import lazy_track.model.UserStory;
 import java.util.List;
 
 public interface UserStoryService {
-    void addUserStory(UserStory userStory);
+    UserStory findById(long id);
 
-    void updateUserStory(UserStory userStory);
+    void save(UserStory userStory);
 
-    void removeUserStory(int id);
+    void update(UserStory userStory);
 
-    UserStory getUserStoryById(int id);
+    void deleteById(long id);
 
-    List<UserStory> listUserStories();
+    List<UserStory> findAll();
+
+    boolean isExist(UserStory userStory);
 }

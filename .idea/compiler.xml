@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="lazy-track" />
+        <module name="Lazy_Track" />
+        <module name="SpringBootRestApiExample" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="lazy-track" target="1.8" />
+      <module name="Lazy_Track" target="1.8" />
+      <module name="SpringBootRestApiExample" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

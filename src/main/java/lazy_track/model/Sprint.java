@@ -1,11 +1,14 @@
 package lazy_track.model;
 
-import lazy_track.dao.LocalDatePersistenceConverter;
+
+import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-
+@EnableTransactionManagement
 @Entity
 @Table(name = "sprints")
 public class Sprint implements Serializable {
@@ -22,11 +25,11 @@ public class Sprint implements Serializable {
     private String goal;
 
     @Column(name = "date")
-    @Convert(converter = LocalDatePersistenceConverter.class)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+   // @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     private LocalDate date;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_story", referencedColumnName = "iduser_storie")
+    @Column(name = "user_story")
     private UserStory userStory;
 
     public Sprint() {
@@ -77,6 +80,28 @@ public class Sprint implements Serializable {
 
     public void setUserStory(UserStory userStory) {
         this.userStory = userStory;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Sprint other = (Sprint) obj;
+        if (id != other.id)
+            return false;
+        return true;
     }
 
     @Override

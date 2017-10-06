@@ -5,14 +5,15 @@ import lazy_track.model.Sprint;
 import java.util.List;
 
 public interface SprintDao {
-    void addSprint(Sprint sprint);
+    void update(Sprint sprint);
 
-    void updateSprint(Sprint sprint);
+    Sprint findById(long id);
 
-    void removeSprint(int id);
+    void save(Sprint sprint);
 
-    Sprint getSprintById(int id);
+    void deleteById(long id);
 
-    List<Sprint> listSprints();
+    List<Sprint> findAll();
 
+    Sprint findByName(String name);
 }

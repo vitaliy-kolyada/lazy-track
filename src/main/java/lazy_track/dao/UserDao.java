@@ -5,14 +5,17 @@ import lazy_track.model.User;
 import java.util.List;
 
 public interface UserDao {
-    void addUser(User user);
 
-    void updateUser(User user);
+    void update(User user);
 
-    void removeUser(int id);
+    User findById(long id);
 
-    User getUserById(int id);
+    void save(User user);
 
-    List<User> listUsers();
+    void deleteById(long id);
+
+    List<User> findAll();
+
+    User findByName(String name);
 
 }

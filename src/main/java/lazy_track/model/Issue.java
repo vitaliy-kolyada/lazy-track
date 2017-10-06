@@ -1,8 +1,11 @@
 package lazy_track.model;
 
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@EnableTransactionManagement
 @Entity
 @Table(name = "issues")
 public class Issue implements Serializable {
@@ -12,16 +15,13 @@ public class Issue implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sprint", referencedColumnName = "idsprint")
+    @Column(name = "sprint")
     private Sprint sprint;
 
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", referencedColumnName = "idusers")
+    @Column(name = "created_by")
     private User createdBy;
 
     @Column(name = "priority")
@@ -36,8 +36,7 @@ public class Issue implements Serializable {
     @Column(name = "severity")
     private int severity;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "sign", referencedColumnName = "idusers")
+    @Column(name = "sign")
     private User sign;
 
     @Column(name = "story_points")
@@ -137,6 +136,28 @@ public class Issue implements Serializable {
 
     public void setStoryPoints(int storyPoints) {
         this.storyPoints = storyPoints;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (id ^ (id >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Issue other = (Issue) obj;
+        if (id != other.id)
+            return false;
+        return true;
     }
 
     @Override

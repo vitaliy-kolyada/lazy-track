@@ -5,14 +5,15 @@ import lazy_track.model.Company;
 import java.util.List;
 
 public interface CompanyService {
-    void addCompany(Company company);
+    Company findById(long id);
 
-    void updateCompany(Company company);
+    void save(Company company);
 
-    void removeCompany(int id);
+    void update(Company company);
 
-    Company getCompanyById(int id);
+    void deleteById(long id);
 
-    List<Company> listCompanies();
+    List<Company> findAll();
 
+    boolean isExist(Company company);
 }

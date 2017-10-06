@@ -2,47 +2,42 @@ package lazy_track.service;
 
 import lazy_track.dao.IssueDao;
 import lazy_track.model.Issue;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Service("issueService")
 public class IssueServiceImpl implements IssueService {
 
     private IssueDao issueDao;
 
+    @Autowired
     public void setIssueDao(IssueDao issueDao) {
         this.issueDao = issueDao;
     }
 
-    @Override
-    @Transactional
-    public void addIssue(Issue issue) {
-        issueDao.addIssue(issue);
+    public List<Issue> findAll() {
+        return issueDao.findAll();
     }
 
-    @Override
-    @Transactional
-    public void updateIssue(Issue issue) {
-        issueDao.updateIssue(issue);
+    public Issue findById(long id) {
+        return issueDao.findById(id);
     }
 
-    @Override
-    @Transactional
-    public void removeIssue(int id) {
-        issueDao.removeIssue(id);
+    public void save(Issue issue) {
+        issueDao.save(issue);
     }
 
-    @Override
-    @Transactional
-    public Issue getIssueById(int id) {
-        return issueDao.getIssueById(id);
+    public void update(Issue issue) {
+        issueDao.update(issue);
     }
 
-    @Override
-    @Transactional
-    public List<Issue> listIssues() {
-        return issueDao.listIssues();
+    public void deleteById(long id) {
+        issueDao.deleteById(id);
+    }
+
+    public boolean isExist(Issue issue) {
+        return issueDao.findByName(issue.getName()) != null;
     }
 }

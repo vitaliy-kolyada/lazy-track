@@ -2,46 +2,48 @@ package lazy_track.service;
 
 import lazy_track.dao.UserStoryDao;
 import lazy_track.model.UserStory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
+@Service("userStoryService")
 public class UserStoryServiceImpl implements UserStoryService {
+
     private UserStoryDao userStoryDao;
 
+    @Autowired
     public void setUserStoryDao(UserStoryDao userStoryDao) {
         this.userStoryDao = userStoryDao;
     }
 
     @Override
-    @Transactional
-    public void addUserStory(UserStory userStory) {
-        userStoryDao.addUserStory(userStory);
+    public List<UserStory> findAll() {
+        return userStoryDao.findAll();
     }
 
     @Override
-    @Transactional
-    public void updateUserStory(UserStory userStory) {
-        userStoryDao.updateUserStory(userStory);
+    public UserStory findById(long id) {
+        return userStoryDao.findById(id);
     }
 
     @Override
-    @Transactional
-    public void removeUserStory(int id) {
-        userStoryDao.removeUserStory(id);
+    public void save(UserStory userStory) {
+        userStoryDao.save(userStory);
     }
 
     @Override
-    @Transactional
-    public UserStory getUserStoryById(int id) {
-        return userStoryDao.getUserStoryById(id);
+    public void update(UserStory userStory) {
+        userStoryDao.update(userStory);
     }
 
     @Override
-    @Transactional
-    public List<UserStory> listUserStories() {
-        return userStoryDao.listUserStories();
+    public void deleteById(long id) {
+        userStoryDao.deleteById(id);
+    }
+
+    @Override
+    public boolean isExist(UserStory userStory) {
+        return userStoryDao.findByName(userStory.getName()) != null;
     }
 }
