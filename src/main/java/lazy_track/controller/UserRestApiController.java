@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -19,8 +20,13 @@ import java.util.List;
 public class UserRestApiController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRestApiController.class);
-
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private UserService userService; //Service which will do all data retrieval/manipulation work
+
+    @Autowired
+    public void setBCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -63,6 +69,7 @@ public class UserRestApiController {
             return new ResponseEntity<>(new CustomErrorType("Unable to create. A User with name " +
                     user.getName() + " already exist."), HttpStatus.CONFLICT);
         }
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userService.save(user);
 
         HttpHeaders headers = new HttpHeaders();
@@ -112,5 +119,12 @@ public class UserRestApiController {
         }
         userService.deleteById(id);
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    }
+
+    // ------------------- Sign-up a User -------------------------------------------------------------------------------
+    @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
+    public void signUp(@RequestBody User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userService.save(user);
     }
 }
