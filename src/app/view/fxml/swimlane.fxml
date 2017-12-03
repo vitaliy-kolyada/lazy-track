@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <ImageView fitHeight="399.3334101725261" fitWidth="599.0000999999975" layoutX="1.0" layoutY="0.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="file:/home/vitaly/Pictures/background/clean-2721101_960_720.jpg" />
+      </image>
+    </ImageView>
+    <TableView focusTraversable="true" layoutX="1.0" layoutY="69.0" prefHeight="331.0" prefWidth="599.0">
+      <columns>
+        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="169.0" text="Open" />
+        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="124.0" text="In progress" />
+        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="159.0" text="To verify" />
+        <TableColumn maxWidth="5000.0" minWidth="0.0" prefWidth="148.0" text="Done" />
+      </columns>
+    </TableView>
+    <MenuBar layoutX="1.0" layoutY="1.0" opacity="1.0" prefWidth="599.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="Issue">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Create new" />
+            <MenuItem mnemonicParsing="false" text="Update" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Sprint">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Create new" />
+            <MenuItem mnemonicParsing="false" text="Update" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="User story">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Create new" />
+            <MenuItem mnemonicParsing="false" text="Update" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Project">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Create new" />
+            <MenuItem mnemonicParsing="false" text="Update" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Company">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Create new" />
+            <MenuItem mnemonicParsing="false" text="Update" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Employee">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Register new" />
+            <MenuItem mnemonicParsing="false" text="Update" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" text="Exit" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <Label layoutX="178.0" layoutY="37.0" text="Current swimlane[Project]">
+      <font>
+        <Font name="Ubuntu" size="20.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>

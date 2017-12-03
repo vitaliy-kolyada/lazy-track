@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="250.0" prefWidth="375.0"
+            xmlns="http://javafx.com/javafx/2.2" fx:controller="app.view.LoginController">
+    <ImageView fitHeight="564.0000610758464" fitWidth="376.0000305175781" pickOnBounds="true" preserveRatio="true"
+               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0"
+               AnchorPane.topAnchor="0.0">
+        <Image url="@eberhard-grossgasteiger-HORIZONTAL.jpg"/>
+    </ImageView>
+    <PasswordField fx:id="passwordField" layoutX="81.0" layoutY="142.0" opacity="0.8" prefWidth="214.0"/>
+    <TextField fx:id="loginField" layoutX="81.0" layoutY="91.0" opacity="0.8" prefWidth="214.0"/>
+    <Button fx:id="loginButton" layoutX="81.0" layoutY="174.0" mnemonicParsing="false" onAction="#handleLogin"
+            opacity="0.9" prefWidth="99.0" text="Log in" textFill="BLACK">
+        <font>
+            <Font name="System Bold" size="13.0" fx:id="x2"/>
+        </font>
+    </Button>
+    <Button fx:id="signInButton" font="$x2" layoutX="196.0" layoutY="174.0" mnemonicParsing="false"
+            onAction="#handleSignIn" opacity="0.9" prefWidth="99.0" text="Sign in" textAlignment="CENTER"
+            textOverrun="LEADING_ELLIPSIS"/>
+    <Label layoutX="170.0" layoutY="74.0" text="Login" textFill="WHITE">
+        <font>
+            <Font name="mry_KacstQurn" size="16.0"/>
+        </font>
+    </Label>
+    <Label layoutX="159.0" layoutY="125.0" text="Password" textFill="#dfdfdf">
+        <font>
+            <Font name="Ubuntu" size="16.0" fx:id="x1"/>
+        </font>
+    </Label>
+    <Label layoutX="75.0" layoutY="24.0" prefHeight="39.0" prefWidth="224.9998779296875" text="Welcome to Lazy Track"
+           textAlignment="RIGHT" textFill="BLACK">
+        <font>
+            <Font name="Ubuntu Bold" size="20.0"/>
+        </font>
+    </Label>
+    <Label fx:id="errorMessage" layoutX="108.0" layoutY="206.0" text="Invalid login or password" textFill="RED"
+           visible="false">
+        <font>
+            <Font name="Ubuntu" size="15.0"/>
+        </font>
+    </Label>
+</AnchorPane>
