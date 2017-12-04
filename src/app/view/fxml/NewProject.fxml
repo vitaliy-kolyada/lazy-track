@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0"
-            xmlns="http://javafx.com/javafx/2.2">
-    <children>
-        <ImageView fitHeight="350.0000237358945" fitWidth="300.00001525878906" pickOnBounds="true" preserveRatio="true"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.topAnchor="0.0">
-            <image>
-                <Image url="@eberhard-grossgasteiger-VERTICAL.jpg"/>
-            </image>
-        </ImageView>
-        <Label text="Name" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="45.0">
-            <font>
-                <Font name="Ubuntu" size="15.0" fx:id="x1"/>
-            </font>
-        </Label>
-        <TextField opacity="0.8" prefWidth="200.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="45.0"/>
-        <Label layoutX="82.0" layoutY="14.0" text="Creating new project">
-            <font>
-                <Font name="Ubuntu Bold" size="15.0" fx:id="x2"/>
-            </font>
-        </Label>
-        <Label font="$x1" text="Description" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="75.0"/>
-        <TextArea opacity="0.8" prefHeight="199.0" prefWidth="260.0" wrapText="true" AnchorPane.bottomAnchor="51.0"
-                  AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0"/>
-        <Button font="$x2" layoutX="112.0" layoutY="311.0" mnemonicParsing="false" opacity="0.8" text="Submit"/>
-    </children>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.view.NewProjectController">
+  <children>
+    <ImageView fitHeight="350.0000237358945" fitWidth="300.00001525878906" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <image>
+        <Image url="@eberhard-grossgasteiger-VERTICAL.jpg" />
+      </image>
+    </ImageView>
+    <Label text="Name" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="45.0">
+      <font>
+        <Font name="Ubuntu" size="15.0" fx:id="x1" />
+      </font>
+    </Label>
+    <TextField fx:id="nameField" opacity="0.8" prefWidth="200.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="45.0" />
+    <Label layoutX="82.0" layoutY="14.0" text="Creating new project">
+      <font>
+        <Font name="Ubuntu Bold" size="15.0" fx:id="x2" />
+      </font>
+    </Label>
+    <Label font="$x1" text="Description" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="75.0" />
+    <TextArea fx:id="descriptionArea" opacity="0.8" prefHeight="186.0" prefWidth="260.0" wrapText="true" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
+    <Button font="$x2" layoutX="112.0" layoutY="296.0" mnemonicParsing="false" onAction="#handleSubmit" opacity="0.8" text="Submit" />
+    <BorderPane prefHeight="29.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <center>
+        <Label fx:id="errorLabel" font="$x1" text="" textFill="RED" />
+      </center>
+    </BorderPane>
+  </children>
 </AnchorPane>

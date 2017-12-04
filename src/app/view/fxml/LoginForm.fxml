@@ -5,8 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="250.0" prefWidth="375.0"
             xmlns="http://javafx.com/javafx/2.2" fx:controller="app.view.LoginController">
     <ImageView fitHeight="564.0000610758464" fitWidth="376.0000305175781" pickOnBounds="true" preserveRatio="true"
@@ -41,10 +40,14 @@
             <Font name="Ubuntu Bold" size="20.0"/>
         </font>
     </Label>
-    <Label fx:id="errorMessage" layoutX="108.0" layoutY="206.0" text="Invalid login or password" textFill="RED"
-           visible="false">
-        <font>
-            <Font name="Ubuntu" size="15.0"/>
-        </font>
-    </Label>
+    <BorderPane prefHeight="55.0" prefWidth="375.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0">
+        <center>
+            <Label fx:id="errorMessage" text="" textFill="RED">
+                <font>
+                    <Font name="Ubuntu" size="15.0"/>
+                </font>
+            </Label>
+        </center>
+    </BorderPane>
 </AnchorPane>

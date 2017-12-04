@@ -2,6 +2,7 @@ package app.view;
 
 import app.controller.UserApiController;
 import app.model.User;
+import app.util.Util;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +17,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginController {
-    private User user;
     private UserApiController apiController = new UserApiController();
     @FXML
     private TextField loginField;
@@ -31,20 +31,37 @@ public class LoginController {
 
     @FXML
     public void handleLogin() {
-        String login = loginField.getText();
-        String password = passwordField.getText();
-        user = apiController.getUser(login, password);
+        errorMessage.setText("");
+        if (loginField.getText().equals("") || passwordField.getText().equals("")) {
+            errorMessage.setText("Fields are empty");
+            return;
+        }
+        User user = apiController.getUser(loginField.getText(), passwordField.getText());
         if (user == null) {
-            errorMessage.setVisible(true);
+            errorMessage.setText("Invalid login or password");
+            return;
+        }
+        Util.setCurrentUser(user);
+        try {
+            Stage stage = (Stage) signInButton.getScene().getWindow();
+            stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/SwimLane.fxml"));
+            Parent root1 = fxmlLoader.load();
+            stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("LazyTrack");
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
     public void handleSignIn() {
         try {
-            //Close current
             Stage stage = (Stage) signInButton.getScene().getWindow();
-            // do what you have to do
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/RegisterForm.fxml"));
             Parent root1 = fxmlLoader.load();

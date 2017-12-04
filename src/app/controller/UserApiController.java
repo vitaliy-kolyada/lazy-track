@@ -5,7 +5,14 @@ import app.model.User;
 import java.util.ArrayList;
 
 public class UserApiController {
-    private ArrayList<User> users = new ArrayList<>();
+    private static ArrayList<User> users = new ArrayList<>();
+
+    static {
+        User testUser = new User();
+        testUser.setLogin("1");
+        testUser.setPassword("1");
+        users.add(testUser);
+    }
 
     public User getUser(String login, String password) {
         for (User user : users)

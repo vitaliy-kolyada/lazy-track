@@ -109,7 +109,7 @@ public class RegisterController {
         User user = initUser();
         Company company = initCompany();
 
-        if (companyApiController.createCompany(company)) {
+        if (companyApiController.create(company)) {
             user.setPosition("CEO " + company.getName());
             user.setCompany(company);
             if (userApiController.register(user)) {
