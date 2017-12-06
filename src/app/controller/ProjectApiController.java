@@ -3,7 +3,6 @@ package app.controller;
 import app.model.Project;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProjectApiController {
     private static ArrayList<Project> projects = new ArrayList<>();
@@ -18,7 +17,7 @@ public class ProjectApiController {
         return true;
     }
 
-    public List<Project> getAll(String companyName) {
+    public ArrayList<Project> getAll(String companyName) {
         ArrayList<Project> res = new ArrayList<>();
         for (Project project : projects) {
             if (project.getCompany().getName().equals(companyName)) {
@@ -29,5 +28,22 @@ public class ProjectApiController {
             return null;
         } else
             return res;
+    }
+
+    public void remove(int id) {
+        projects.remove(id);
+    }
+
+    public boolean update(int id, Project project) {
+        projects.remove(id);
+        return create(project);
+    }
+
+    public Project get(String name) {
+        for (Project project : projects) {
+            if (project.getName().equals(name))
+                return project;
+        }
+        return null;
     }
 }

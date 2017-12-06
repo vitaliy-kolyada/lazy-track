@@ -1,5 +1,6 @@
 package app.controller;
 
+import app.model.Company;
 import app.model.User;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class UserApiController {
         testUser.setLogin("1");
         testUser.setPassword("1");
         users.add(testUser);
+        testUser.setCompany(new Company("name", "desc"));
     }
 
     public User getUser(String login, String password) {

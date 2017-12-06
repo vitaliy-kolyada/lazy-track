@@ -132,12 +132,12 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Project">
               <MenuItem mnemonicParsing="false" onAction="#startNewProject" text="Start new" />
-              <MenuItem mnemonicParsing="false" text="Edit" />
+              <MenuItem mnemonicParsing="false" onAction="#editProject" text="Edit" />
               <MenuItem mnemonicParsing="false" text="Documentation" />
             </Menu>
             <Menu mnemonicParsing="false" text="User story">
-              <MenuItem mnemonicParsing="false" text="Create new" />
-              <MenuItem mnemonicParsing="false" text="Edit" />
+              <MenuItem mnemonicParsing="false" onAction="#createUserStory" text="Create new" />
+              <MenuItem mnemonicParsing="false" onAction="#editUserStory" text="Edit" />
               <MenuItem mnemonicParsing="false" text="Info" />
             </Menu>
             <Menu mnemonicParsing="false" text="Sprint">

@@ -4,10 +4,17 @@ import app.controller.CompanyApiController;
 import app.controller.UserApiController;
 import app.model.Company;
 import app.model.User;
+import app.util.Util;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 public class RegisterController {
@@ -114,6 +121,21 @@ public class RegisterController {
             user.setCompany(company);
             if (userApiController.register(user)) {
                 errorLabel.setText("Ok");
+                Util.setCurrentUser(user);
+                try {
+                    Stage stage = (Stage) errorLabel.getScene().getWindow();
+                    stage.close();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/SwimLane.fxml"));
+                    Parent root1 = fxmlLoader.load();
+                    stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setTitle("LazyTrack");
+                    stage.setScene(new Scene(root1));
+                    stage.setResizable(false);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 errorLabel.setText("This login is busy");
             }

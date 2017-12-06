@@ -29,7 +29,6 @@ public class SwimLaneController {
     public void startNewProject() {
         try {
             Stage stage;
-//            stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/NewProject.fxml"));
             Parent root1 = fxmlLoader.load();
             stage = new Stage();
@@ -43,4 +42,54 @@ public class SwimLaneController {
         }
     }
 
+    @FXML
+    public void editProject() {
+        try {
+            Stage stage;
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/EditProject.fxml"));
+            Parent root1 = fxmlLoader.load();
+            stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Edit project");
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void createUserStory() {
+        try {
+            Stage stage;
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/NewUserStory.fxml"));
+            Parent root1 = fxmlLoader.load();
+            stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("New User story");
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void editUserStory() {
+        try {
+            Stage stage;
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/EditUserStory.fxml"));
+            Parent root1 = fxmlLoader.load();
+            stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("New User story");
+            stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
