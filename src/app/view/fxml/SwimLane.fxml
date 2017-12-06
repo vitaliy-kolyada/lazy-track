@@ -1,166 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.collections.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
+<?import java.lang.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="860.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.view.SwimLaneController">
-  <ImageView fitHeight="600.0" fitWidth="860.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
-    <Image url="@eberhard-grossgasteiger-HORIZONTAL.jpg" />
-  </ImageView>
-  <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-    <bottom>
-      <GridPane prefHeight="23.9998779296875">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="676.0" minWidth="10.0" prefWidth="676.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="372.0" minWidth="10.0" prefWidth="127.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="57.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-        <BorderPane.margin>
-          <Insets fx:id="id" />
-        </BorderPane.margin>
-        <Label fx:id="uptimeLabel" text="HH:MM" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="0">
-          <font>
-            <Font name="Ubuntu" size="14.0" fx:id="x1" />
-          </font>
-        </Label>
-        <Label font="$x1" text="Your uptime today:" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-      </GridPane>
-    </bottom>
-    <center>
-      <AnchorPane prefHeight="517.0" prefWidth="860.0">
-        <TableView focusTraversable="false" opacity="0.85" prefHeight="493.0" prefWidth="860.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <columns>
-            <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Open" />
-            <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="In progress" />
-            <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Reopen" />
-            <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Fixed" />
-            <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Verified" />
-          </columns>
-        </TableView>
-      </AnchorPane>
-    </center>
-    <top>
-      <BorderPane prefHeight="83.0" prefWidth="860.0000999999975">
-        <center>
-          <Label fx:id="sprintNameLabel" text="Sprint name">
-            <font>
-              <Font name="Ubuntu" size="25.0" />
-            </font>
-          </Label>
-        </center>
-        <left>
-          <GridPane prefHeight="59.0" prefWidth="84.0">
-            <columnConstraints>
-              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <padding>
-              <Insets left="10.0" />
-            </padding>
-            <rowConstraints>
-              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <Button fx:id="startButton" mnemonicParsing="false" opacity="0.9" prefHeight="22.000099182128906" prefWidth="74.0" text="Start" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <CheckBox mnemonicParsing="false" opacity="0.9" text="Tomato" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-          </GridPane>
-        </left>
-        <right>
-          <GridPane prefHeight="59.0" prefWidth="200.00009999999747">
-            <columnConstraints>
-              <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.0" minWidth="10.0" prefWidth="72.0" />
-              <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="114.0" />
-            </columnConstraints>
-            <padding>
-              <Insets right="10.0" />
-            </padding>
-            <rowConstraints>
-              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <Label text="Project" GridPane.columnIndex="0" GridPane.rowIndex="0">
-              <font>
-                <Font name="Ubuntu" size="15.0" fx:id="x3" />
-              </font>
-            </Label>
-            <Label font="$x3" text="User story" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <ComboBox fx:id="projectSelector" opacity="0.9" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
-              </items>
-            </ComboBox>
-            <ComboBox fx:id="userStorySelector" opacity="0.9" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-              <items>
-                <FXCollections fx:factory="observableArrayList">
-                  <String fx:value="Item 1" />
-                  <String fx:value="Item 2" />
-                  <String fx:value="Item 3" />
-                </FXCollections>
-              </items>
-            </ComboBox>
-          </GridPane>
-        </right>
-        <top>
-          <MenuBar>
-            <BorderPane.margin>
-              <Insets fx:id="x12" />
-            </BorderPane.margin>
-            <Menu mnemonicParsing="false" text="File">
-              <MenuItem mnemonicParsing="false" text="Settings" />
-              <MenuItem mnemonicParsing="false" text="Exit" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Company">
-              <MenuItem mnemonicParsing="false" text="Rename" />
-              <MenuItem mnemonicParsing="false" text="Change description" />
-              <MenuItem mnemonicParsing="false" text="Manage users" />
-              <MenuItem mnemonicParsing="false" text="About company" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Project">
-              <MenuItem mnemonicParsing="false" onAction="#startNewProject" text="Start new" />
-              <MenuItem mnemonicParsing="false" onAction="#editProject" text="Edit" />
-              <MenuItem mnemonicParsing="false" text="Documentation" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="User story">
-              <MenuItem mnemonicParsing="false" onAction="#createUserStory" text="Create new" />
-              <MenuItem mnemonicParsing="false" onAction="#editUserStory" text="Edit" />
-              <MenuItem mnemonicParsing="false" text="Info" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Sprint">
-              <MenuItem mnemonicParsing="false" text="Start new" />
-              <MenuItem mnemonicParsing="false" text="Edit" />
-              <MenuItem mnemonicParsing="false" text="Info" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Time">
-              <MenuItem mnemonicParsing="false" text="Tomato settings" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Statistic">
-              <MenuItem mnemonicParsing="false" text="Your" />
-              <MenuItem mnemonicParsing="false" text="Company" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-              <MenuItem mnemonicParsing="false" text="About LazyTrack" />
-            </Menu>
-          </MenuBar>
-        </top>
-        <BorderPane.margin>
-          <Insets fx:id="x2" />
-        </BorderPane.margin>
-      </BorderPane>
-    </top>
-  </BorderPane>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.SwimLaneController">
+   <children>
+       <ImageView fitHeight="600.0" fitWidth="860.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+          <image>
+              <Image url="@eberhard-grossgasteiger-HORIZONTAL.jpg" />
+          </image>
+       </ImageView>
+       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <bottom>
+               <GridPane prefHeight="23.9998779296875">
+                   <columnConstraints>
+                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="676.0" minWidth="10.0" prefWidth="676.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="372.0" minWidth="10.0" prefWidth="127.0" />
+                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="215.0" minWidth="10.0" prefWidth="57.0" />
+                   </columnConstraints>
+                   <rowConstraints>
+                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   </rowConstraints>
+                   <BorderPane.margin>
+                       <Insets fx:id="id" />
+                   </BorderPane.margin>
+                  <children>
+                      <Label fx:id="uptimeLabel" text="HH:MM" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                          <font>
+                              <Font name="Ubuntu" size="14.0" fx:id="x1" />
+                          </font>
+                      </Label>
+                      <Label font="$x1" text="Your uptime today:" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  </children>
+               </GridPane>
+           </bottom>
+           <center>
+               <AnchorPane prefHeight="517.0" prefWidth="860.0">
+                  <children>
+                      <TableView focusTraversable="false" opacity="0.85" prefHeight="493.0" prefWidth="860.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                              <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Open" />
+                              <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="In progress" />
+                              <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Reopen" />
+                              <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Fixed" />
+                              <TableColumn maxWidth="172.0" minWidth="172.0" prefWidth="172.0" resizable="false" text="Verified" />
+                          </columns>
+                      </TableView>
+                  </children>
+               </AnchorPane>
+           </center>
+           <top>
+               <BorderPane prefHeight="83.0" prefWidth="860.0000999999975">
+                   <center>
+                       <Label fx:id="sprintNameLabel" text="Sprint name">
+                           <font>
+                               <Font name="Ubuntu" size="25.0" />
+                           </font>
+                       </Label>
+                   </center>
+                   <left>
+                       <GridPane prefHeight="59.0" prefWidth="84.0">
+                           <columnConstraints>
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <padding>
+                               <Insets left="10.0" />
+                           </padding>
+                           <rowConstraints>
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                          <children>
+                              <Button fx:id="startButton" mnemonicParsing="false" opacity="0.9" prefHeight="22.000099182128906" prefWidth="74.0" text="Start" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                              <CheckBox mnemonicParsing="false" opacity="0.9" text="Tomato" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                          </children>
+                       </GridPane>
+                   </left>
+                   <right>
+                       <GridPane prefHeight="59.0" prefWidth="200.00009999999747">
+                           <columnConstraints>
+                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.0" minWidth="10.0" prefWidth="72.0" />
+                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="114.0" />
+                           </columnConstraints>
+                           <padding>
+                               <Insets right="10.0" />
+                           </padding>
+                           <rowConstraints>
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                          <children>
+                              <Label text="Project" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                  <font>
+                                      <Font name="Ubuntu" size="15.0" fx:id="x3" />
+                                  </font>
+                              </Label>
+                              <Label font="$x3" text="User story" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="projectSelector" opacity="0.9" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                  <items>
+                                      <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                      </FXCollections>
+                                  </items>
+                              </ComboBox>
+                              <ComboBox fx:id="userStorySelector" opacity="0.9" prefWidth="123.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                  <items>
+                                      <FXCollections fx:factory="observableArrayList">
+                                          <String fx:value="Item 1" />
+                                          <String fx:value="Item 2" />
+                                          <String fx:value="Item 3" />
+                                      </FXCollections>
+                                  </items>
+                              </ComboBox>
+                          </children>
+                       </GridPane>
+                   </right>
+                   <top>
+                       <MenuBar>
+                           <BorderPane.margin>
+                               <Insets fx:id="x12" />
+                           </BorderPane.margin>
+                          <menus>
+                              <Menu mnemonicParsing="false" text="File">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" text="Settings" />
+                                     <MenuItem mnemonicParsing="false" text="Exit" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Company">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" text="Rename" />
+                                     <MenuItem mnemonicParsing="false" text="Change description" />
+                                     <MenuItem mnemonicParsing="false" text="Manage users" />
+                                     <MenuItem mnemonicParsing="false" text="About company" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Project">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" onAction="#startNewProject" text="Start new" />
+                                     <MenuItem mnemonicParsing="false" onAction="#editProject" text="Edit" />
+                                     <MenuItem mnemonicParsing="false" text="Documentation" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="User story">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" onAction="#createUserStory" text="Create new" />
+                                     <MenuItem mnemonicParsing="false" onAction="#editUserStory" text="Edit" />
+                                     <MenuItem mnemonicParsing="false" text="Info" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Sprint">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" onAction="#createSprint" text="Start new" />
+                                     <MenuItem mnemonicParsing="false" onAction="#editSprint" text="Edit" />
+                                     <MenuItem mnemonicParsing="false" text="Info" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Time">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" text="Tomato settings" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Statistic">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" text="Your" />
+                                     <MenuItem mnemonicParsing="false" text="Company" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Help">
+                                 <items>
+                                     <MenuItem mnemonicParsing="false" text="About LazyTrack" />
+                                 </items>
+                              </Menu>
+                          </menus>
+                       </MenuBar>
+                   </top>
+                   <BorderPane.margin>
+                       <Insets fx:id="x2" />
+                   </BorderPane.margin>
+               </BorderPane>
+           </top>
+       </BorderPane>
+   </children>
 </AnchorPane>

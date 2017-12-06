@@ -3,23 +3,21 @@ package app.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Sprint implements Serializable {
 
     private int id;
     private String name;
     private String goal;
+    private Project project;
     private LocalDate date;
-    private UserStory userStory;
 
-    public Sprint() {
-    }
-
-    public Sprint(String name, String goal, LocalDate date, UserStory userStory) {
+    public Sprint(String name, String goal, Project project, LocalDate date) {
         this.name = name;
         this.goal = goal;
+        this.project = project;
         this.date = date;
-        this.userStory = userStory;
     }
 
     public int getId() {
@@ -46,6 +44,14 @@ public class Sprint implements Serializable {
         this.goal = goal;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
     public LocalDate getDate() {
         return date;
     }
@@ -54,34 +60,21 @@ public class Sprint implements Serializable {
         this.date = date;
     }
 
-    public UserStory getUserStory() {
-        return userStory;
-    }
-
-    public void setUserStory(UserStory userStory) {
-        this.userStory = userStory;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sprint sprint = (Sprint) o;
+        return id == sprint.id &&
+                Objects.equals(name, sprint.name) &&
+                Objects.equals(goal, sprint.goal) &&
+                Objects.equals(project, sprint.project) &&
+                Objects.equals(date, sprint.date);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Sprint other = (Sprint) obj;
-        if (id != other.id)
-            return false;
-        return true;
+        return Objects.hash(id, name, goal, project, date);
     }
 
     @Override
@@ -90,8 +83,8 @@ public class Sprint implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", goal='" + goal + '\'' +
+                ", project='" + project + '\'' +
                 ", date=" + date +
-                ", userStory=" + userStory +
                 '}';
     }
 }

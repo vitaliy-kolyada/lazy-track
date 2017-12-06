@@ -88,6 +88,5 @@ public class EditUserStoryController {
             nameField.setText("");
             descriptionArea.setText("");
         }
-
     }
 }
