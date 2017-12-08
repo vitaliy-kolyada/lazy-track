@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
@@ -7,81 +9,64 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8"
-            fx:controller="app.view.EditSprintController">
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" styleClass="background" stylesheets="@background.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.EditSprintController">
     <children>
-        <ImageView fitHeight="350.0" fitWidth="466.66666666666663" pickOnBounds="true" preserveRatio="true"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.topAnchor="0.0">
-            <image>
-                <Image url="@eberhard-grossgasteiger-VERTICAL.jpg"/>
-            </image>
-        </ImageView>
-        <GridPane prefHeight="149.0" prefWidth="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
-                  AnchorPane.topAnchor="20.0">
+        <GridPane prefHeight="149.0" prefWidth="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="92.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="10.0" prefWidth="168.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="92.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="10.0" prefWidth="168.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <Label text="Name" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <font>
-                        <Font name="Ubuntu" size="15.0" fx:id="x1"/>
+                        <Font name="Ubuntu" size="15.0" fx:id="x1" />
                     </font>
                 </Label>
-                <TextField fx:id="nameField" opacity="0.8" prefHeight="25.0" prefWidth="130.0" GridPane.columnIndex="1"
-                           GridPane.rowIndex="1"/>
-                <Label font="$x1" text="Project" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <ComboBox id="project" fx:id="projectSelector" prefHeight="25.0" prefWidth="168.0"
-                          GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <TextField fx:id="nameField" opacity="0.8" prefHeight="25.0" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label font="$x1" text="Project" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <ComboBox id="project" fx:id="projectSelector" opacity="0.8" prefHeight="25.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Item 1"/>
-                            <String fx:value="Item 2"/>
-                            <String fx:value="Item 3"/>
+                            <String fx:value="Item 1" />
+                            <String fx:value="Item 2" />
+                            <String fx:value="Item 3" />
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Label text="Edit" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <Label text="Edit" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <font>
-                        <Font name="Ubuntu Bold" size="15.0" fx:id="x2"/>
+                        <Font name="Ubuntu Bold" size="15.0" fx:id="x2" />
                     </font>
                 </Label>
-                <ComboBox id="sprind" fx:id="sprintSelector" onAction="#select" prefHeight="25.0" prefWidth="168.0"
-                          GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <ComboBox id="sprind" fx:id="sprintSelector" onAction="#select" opacity="0.8" prefHeight="25.0" prefWidth="168.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <String fx:value="Item 1"/>
-                            <String fx:value="Item 2"/>
-                            <String fx:value="Item 3"/>
+                            <String fx:value="Item 1" />
+                            <String fx:value="Item 2" />
+                            <String fx:value="Item 3" />
                         </FXCollections>
                     </items>
                 </ComboBox>
-                <Label font="$x1" text="Date" GridPane.rowIndex="3"/>
-                <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
-                <Label font="$x1" text="Goal" GridPane.rowIndex="4"/>
+                <Label font="$x1" text="Date" textFill="WHITE" GridPane.rowIndex="3" />
+                <DatePicker fx:id="datePicker" opacity="0.8" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label font="$x1" text="Goal" textFill="WHITE" GridPane.rowIndex="4" />
             </children>
         </GridPane>
-        <Button font="$x2" layoutY="300.0" mnemonicParsing="false" onAction="#handleSubmit" opacity="0.8" text="Submit"
-                AnchorPane.leftAnchor="65.0"/>
-        <TextArea fx:id="goalArea" layoutX="21.0" layoutY="168.0" prefHeight="125.0" prefWidth="259.0"
-                  wrapText="true" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="20.0"/>
-        <BorderPane prefHeight="25.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.rightAnchor="0.0">
+        <Button font="$x2" layoutY="300.0" mnemonicParsing="false" onAction="#handleSubmit" opacity="0.8" text="Submit" AnchorPane.leftAnchor="65.0" />
+        <TextArea fx:id="goalArea" layoutX="21.0" layoutY="168.0" opacity="0.8" prefHeight="125.0" prefWidth="259.0" wrapText="true" AnchorPane.leftAnchor="21.0" AnchorPane.rightAnchor="20.0" />
+        <BorderPane prefHeight="25.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <center>
-                <Label fx:id="errorLabel" font="$x1" text="" textFill="RED"/>
+                <Label fx:id="errorLabel" font="$x1" text="" textFill="RED" />
             </center>
         </BorderPane>
-        <Button contentDisplay="CENTER" font="$x2" layoutY="300.0" mnemonicParsing="false" onAction="#handleDelete"
-                opacity="0.8" text="Delete" AnchorPane.rightAnchor="65.0"/>
+        <Button contentDisplay="CENTER" font="$x2" layoutY="300.0" mnemonicParsing="false" onAction="#handleDelete" opacity="0.8" text="Delete" AnchorPane.rightAnchor="65.0" />
     </children>
 </AnchorPane>

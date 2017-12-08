@@ -9,11 +9,12 @@ public class UserApiController {
     private static ArrayList<User> users = new ArrayList<>();
 
     static {
+        Company company = new Company("name", "desc");
         User testUser = new User();
         testUser.setLogin("1");
         testUser.setPassword("1");
         users.add(testUser);
-        testUser.setCompany(new Company("name", "desc"));
+        testUser.setCompany(company);
     }
 
     public User getUser(String login, String password) {

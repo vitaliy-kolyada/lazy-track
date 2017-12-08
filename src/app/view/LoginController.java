@@ -43,7 +43,7 @@ public class LoginController {
         }
         Util.setCurrentUser(user);
         try {
-            Stage stage = (Stage) signInButton.getScene().getWindow();
+            Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/SwimLane.fxml"));
             Parent root1 = fxmlLoader.load();
@@ -51,7 +51,7 @@ public class LoginController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("LazyTrack");
             stage.setScene(new Scene(root1));
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
@@ -7,48 +10,41 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="350.0" prefWidth="300.0"
-            xmlns="http://javafx.com/javafx/2.2" fx:controller="app.view.EditProjectController">
-    <ImageView fitHeight="350.0000237358945" fitWidth="300.00001525878906" pickOnBounds="true" preserveRatio="true">
-        <Image url="@eberhard-grossgasteiger-VERTICAL.jpg"/>
-    </ImageView>
-    <Label text="Edit" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
-        <font>
-            <Font name="Ubuntu Bold" size="15.0" fx:id="x2"/>
-        </font>
-    </Label>
-    <ComboBox fx:id="projectSelector" onAction="#select" prefWidth="194.0" AnchorPane.leftAnchor="86.0"
-              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Item 1"/>
-                <String fx:value="Item 2"/>
-                <String fx:value="Item 3"/>
-            </FXCollections>
-        </items>
-    </ComboBox>
-    <Label layoutY="55.0" text="Name" AnchorPane.leftAnchor="20.0">
-        <font>
-            <Font name="Ubuntu" size="15.0" fx:id="x1"/>
-        </font>
-    </Label>
-    <TextField fx:id="nameField" layoutY="51.0" opacity="0.8" prefHeight="22.0" prefWidth="194.0"
-               AnchorPane.rightAnchor="20.0"/>
-    <Label font="$x1" layoutY="81.0" text="Description" AnchorPane.leftAnchor="20.0"/>
-    <TextArea fx:id="descriptionArea" layoutY="103.0" opacity="0.8" prefHeight="186.0" prefWidth="260.0" wrapText="true"
-              AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"/>
-    <BorderPane prefHeight="32.000030517578125" prefWidth="300.0" AnchorPane.bottomAnchor="0.0"
-                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="318.0">
-        <center>
-            <BorderPane prefHeight="25.0" prefWidth="300.0">
-                <center>
-                    <Label fx:id="errorLabel" font="$x1" text="" textFill="RED"/>
-                </center>
-            </BorderPane>
-        </center>
-    </BorderPane>
-    <Button font="$x2" mnemonicParsing="false" onAction="#handleSubmit" opacity="0.8" prefWidth="79.00009999999747"
-            text="Submit" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="65.0"/>
-    <Button contentDisplay="CENTER" font="$x2" mnemonicParsing="false" onAction="#handleDelete" opacity="0.8"
-            text="Delete" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="65.0"/>
+
+<AnchorPane prefHeight="350.0" prefWidth="300.0" styleClass="background" stylesheets="@background.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.EditProjectController">
+   <children>
+       <Label text="Edit" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="22.0">
+           <font>
+               <Font name="Ubuntu Bold" size="15.0" fx:id="x2" />
+           </font>
+       </Label>
+       <ComboBox fx:id="projectSelector" onAction="#select" prefWidth="194.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="Item 1" />
+                   <String fx:value="Item 2" />
+                   <String fx:value="Item 3" />
+               </FXCollections>
+           </items>
+       </ComboBox>
+       <Label layoutY="55.0" text="Name" textFill="WHITE" AnchorPane.leftAnchor="20.0">
+           <font>
+               <Font name="Ubuntu" size="15.0" fx:id="x1" />
+           </font>
+       </Label>
+       <TextField fx:id="nameField" layoutY="51.0" opacity="0.8" prefHeight="22.0" prefWidth="194.0" AnchorPane.rightAnchor="20.0" />
+       <Label font="$x1" layoutY="81.0" text="Description" textFill="WHITE" AnchorPane.leftAnchor="20.0" />
+       <TextArea fx:id="descriptionArea" layoutY="103.0" opacity="0.8" prefHeight="186.0" prefWidth="260.0" wrapText="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+       <BorderPane prefHeight="32.000030517578125" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="318.0">
+           <center>
+               <BorderPane prefHeight="25.0" prefWidth="300.0">
+                   <center>
+                       <Label fx:id="errorLabel" font="$x1" text="" textFill="RED" />
+                   </center>
+               </BorderPane>
+           </center>
+       </BorderPane>
+       <Button font="$x2" mnemonicParsing="false" onAction="#handleSubmit" opacity="0.8" prefWidth="79.00009999999747" text="Submit" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="65.0" />
+       <Button contentDisplay="CENTER" font="$x2" mnemonicParsing="false" onAction="#handleDelete" opacity="0.8" text="Delete" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="65.0" />
+   </children>
 </AnchorPane>

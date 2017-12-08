@@ -1,96 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.collections.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
+<?import java.lang.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
-  <children>
-    <ImageView fitHeight="350.0000237358945" fitWidth="300.00001525878906" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <image>
-        <Image url="@eberhard-grossgasteiger-VERTICAL.jpg" />
-      </image>
-    </ImageView>
-    <Label layoutX="83.0" layoutY="14.0" text="Creating new issue">
-      <font>
-        <Font name="Ubuntu Bold" size="15.0" fx:id="x2" />
-      </font>
-    </Label>
-    <GridPane AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
-      <children>
-        <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0">
-          <font>
-            <Font name="Ubuntu" size="15.0" fx:id="x1" />
-          </font>
-        </Label>
-        <Label font="$x1" text="Priority" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Label font="$x1" text="Type" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label font="$x1" text="Severity" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <Label font="$x1" text="Sign" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-        <TextField opacity="0.8" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Item 1" />
-              <String fx:value="Item 2" />
-              <String fx:value="Item 3" />
-            </FXCollections>
-          </items>
-        </ChoiceBox>
-        <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Item 1" />
-              <String fx:value="Item 2" />
-              <String fx:value="Item 3" />
-            </FXCollections>
-          </items>
-        </ChoiceBox>
-        <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Item 1" />
-              <String fx:value="Item 2" />
-              <String fx:value="Item 3" />
-            </FXCollections>
-          </items>
-        </ChoiceBox>
-        <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-          <items>
-            <FXCollections fx:factory="observableArrayList">
-              <String fx:value="Item 1" />
-              <String fx:value="Item 2" />
-              <String fx:value="Item 3" />
-            </FXCollections>
-          </items>
-        </ChoiceBox>
-      </children>
-      <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      </columnConstraints>
-      <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      </rowConstraints>
-    </GridPane>
-    <Label font="$x1" layoutX="103.0" layoutY="196.0" text="Description" textFill="WHITE" />
-    <Button font="$x2" layoutX="112.0" layoutY="285.0" mnemonicParsing="false" opacity="0.8" text="Submit" />
-    <TextArea layoutX="14.0" layoutY="219.0" opacity="0.8" prefHeight="63.0" prefWidth="266.0" wrapText="true" />
-    <BorderPane prefHeight="40.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-      <center>
-        <Label font="$x1" text="" textFill="RED" />
-      </center>
-    </BorderPane>
-  </children>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" styleClass="background" stylesheets="@background.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <Label layoutX="83.0" layoutY="14.0" text="Creating new issue" textFill="WHITE">
+           <font>
+               <Font name="Ubuntu Bold" size="15.0" fx:id="x2" />
+           </font>
+       </Label>
+       <GridPane AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+          <children>
+              <Label text="Name" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <font>
+                      <Font name="Ubuntu" size="15.0" fx:id="x1" />
+                  </font>
+              </Label>
+              <Label font="$x1" text="Priority" textFill="#f8f8f8" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+              <Label font="$x1" text="Type" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+              <Label font="$x1" text="Severity" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+              <Label font="$x1" text="Sign" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+              <TextField opacity="0.8" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+              <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <items>
+                      <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Item 1" />
+                          <String fx:value="Item 2" />
+                          <String fx:value="Item 3" />
+                      </FXCollections>
+                  </items>
+              </ChoiceBox>
+              <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <items>
+                      <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Item 1" />
+                          <String fx:value="Item 2" />
+                          <String fx:value="Item 3" />
+                      </FXCollections>
+                  </items>
+              </ChoiceBox>
+              <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <items>
+                      <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Item 1" />
+                          <String fx:value="Item 2" />
+                          <String fx:value="Item 3" />
+                      </FXCollections>
+                  </items>
+              </ChoiceBox>
+              <ChoiceBox opacity="0.8" prefWidth="130.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <items>
+                      <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="Item 1" />
+                          <String fx:value="Item 2" />
+                          <String fx:value="Item 3" />
+                      </FXCollections>
+                  </items>
+              </ChoiceBox>
+          </children>
+       </GridPane>
+       <Label font="$x1" layoutX="103.0" layoutY="196.0" text="Description" textFill="WHITE" />
+       <Button font="$x2" layoutX="112.0" layoutY="285.0" mnemonicParsing="false" opacity="0.8" text="Submit" />
+       <TextArea layoutX="14.0" layoutY="219.0" opacity="0.8" prefHeight="63.0" prefWidth="266.0" wrapText="true" />
+       <BorderPane prefHeight="40.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+           <center>
+               <Label font="$x1" text="" textFill="RED" />
+           </center>
+       </BorderPane>
+   </children>
 </AnchorPane>

@@ -13,6 +13,9 @@ public class Sprint implements Serializable {
     private Project project;
     private LocalDate date;
 
+    public Sprint() {
+    }
+
     public Sprint(String name, String goal, Project project, LocalDate date) {
         this.name = name;
         this.goal = goal;

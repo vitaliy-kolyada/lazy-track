@@ -1,11 +1,17 @@
 package app.controller;
 
 import app.model.Project;
+import app.util.Util;
 
 import java.util.ArrayList;
 
 public class ProjectApiController {
     private static ArrayList<Project> projects = new ArrayList<>();
+
+    static {
+        Project project = new Project(Util.getCurrentUser().getCompany(), "name", "desc");
+        projects.add(project);
+    }
 
     public boolean create(Project project) {
         for (Project project1 : projects) {

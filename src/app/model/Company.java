@@ -1,6 +1,7 @@
 package app.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class Company implements Serializable {
@@ -33,7 +34,6 @@ public class Company implements Serializable {
         this.name = name;
     }
 
-
     public String getDescription() {
         return description;
     }
@@ -43,25 +43,18 @@ public class Company implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return id == company.id &&
+                Objects.equals(name, company.name) &&
+                Objects.equals(description, company.description);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Company other = (Company) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, name, description);
     }
 
     @Override

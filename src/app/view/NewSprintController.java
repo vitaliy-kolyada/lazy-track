@@ -8,6 +8,7 @@ import app.util.Util;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class NewSprintController {
@@ -51,12 +52,14 @@ public class NewSprintController {
             errorLabel.setText("Choose deadline date");
             return;
         }
-
+        if (datePicker.getValue().isBefore(LocalDate.now())) {
+            errorLabel.setText("You can not set past date");
+            return;
+        }
         Project project = projectApiController.get(projectSelector.getSelectionModel().getSelectedItem());
         Sprint sprint = new Sprint(nameField.getText(), goalArea.getText(), project, datePicker.getValue());
         if (sprintApiController.create(sprint)) {
             errorLabel.setText("Created " + sprint.getName());
-
         } else {
             errorLabel.setText("Name must be unique");
         }

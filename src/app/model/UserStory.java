@@ -2,6 +2,7 @@ package app.model;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class UserStory implements Serializable {
 
@@ -52,25 +53,19 @@ public class UserStory implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserStory userStory = (UserStory) o;
+        return id == userStory.id &&
+                Objects.equals(name, userStory.name) &&
+                Objects.equals(description, userStory.description) &&
+                Objects.equals(project, userStory.project);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        UserStory other = (UserStory) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, name, description, project);
     }
 
     @Override

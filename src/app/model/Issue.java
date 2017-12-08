@@ -1,11 +1,12 @@
 package app.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Issue implements Serializable {
 
     private int id;
-    private Sprint sprint;
+    private UserStory userStory;
     private String name;
     private User createdBy;
     private int priority;
@@ -15,12 +16,8 @@ public class Issue implements Serializable {
     private User sign;
     private int storyPoints;
 
-
-    public Issue() {
-    }
-
-    public Issue(Sprint sprint, String name, User createdBy, int priority, int type, int state, int severity, User sign, int storyPoints) {
-        this.sprint = sprint;
+    public Issue(UserStory userStory, String name, User createdBy, int priority, int type, int state, int severity, User sign) {
+        this.userStory = userStory;
         this.name = name;
         this.createdBy = createdBy;
         this.priority = priority;
@@ -28,15 +25,6 @@ public class Issue implements Serializable {
         this.state = state;
         this.severity = severity;
         this.sign = sign;
-        this.storyPoints = storyPoints;
-    }
-
-    public int getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(int severity) {
-        this.severity = severity;
     }
 
     public int getId() {
@@ -47,12 +35,12 @@ public class Issue implements Serializable {
         this.id = id;
     }
 
-    public Sprint getSprint() {
-        return sprint;
+    public UserStory getUserStory() {
+        return userStory;
     }
 
-    public void setSprint(Sprint sprint) {
-        this.sprint = sprint;
+    public void setUserStory(UserStory userStory) {
+        this.userStory = userStory;
     }
 
     public String getName() {
@@ -95,6 +83,14 @@ public class Issue implements Serializable {
         this.state = state;
     }
 
+    public int getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(int severity) {
+        this.severity = severity;
+    }
+
     public User getSign() {
         return sign;
     }
@@ -112,32 +108,32 @@ public class Issue implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Issue issue = (Issue) o;
+        return id == issue.id &&
+                priority == issue.priority &&
+                type == issue.type &&
+                state == issue.state &&
+                severity == issue.severity &&
+                storyPoints == issue.storyPoints &&
+                Objects.equals(userStory, issue.userStory) &&
+                Objects.equals(name, issue.name) &&
+                Objects.equals(createdBy, issue.createdBy) &&
+                Objects.equals(sign, issue.sign);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Issue other = (Issue) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, userStory, name, createdBy, priority, type, state, severity, sign, storyPoints);
     }
 
     @Override
     public String toString() {
         return "Issue{" +
                 "id=" + id +
-                ", sprint=" + sprint +
+                ", userStory=" + userStory +
                 ", name='" + name + '\'' +
                 ", createdBy=" + createdBy +
                 ", priority=" + priority +

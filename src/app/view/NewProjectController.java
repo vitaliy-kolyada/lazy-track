@@ -22,6 +22,7 @@ public class NewProjectController {
         errorLabel.setText("");
         if (nameField.getText().equals("")) {
             errorLabel.setText("Project name is required");
+            return;
         }
         Project project = new Project(Util.getCurrentUser().getCompany(), nameField.getText(), descriptionArea.getText());
         if (projectApiController.create(project)) {

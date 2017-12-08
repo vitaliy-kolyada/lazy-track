@@ -41,6 +41,9 @@ public class EditUserStoryController {
         ArrayList<UserStory> userStories = new ArrayList<>();
         for (Project project : projects) {
             ArrayList<UserStory> local = userStoryApiController.getAll(project.getName());
+            if (local == null) {
+                return;
+            }
             userStories.addAll(local);
         }
 
@@ -65,6 +68,7 @@ public class EditUserStoryController {
     public void handleSubmit() {
         errorLabel.setText("");
         if (selectedUserStory == null) {
+            errorLabel.setText("Select user story");
             return;
         }
         if (nameField.getText().equals("")) {

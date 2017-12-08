@@ -1,1 +1,1 @@
-# lazy-track
+# LazyTrack

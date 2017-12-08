@@ -38,6 +38,9 @@ public class EditSprintController {
         ArrayList<Sprint> sprints = new ArrayList<>();
         for (Project project : projects) {
             ArrayList<Sprint> local = sprintApiController.getAll(project.getName());
+            if (local == null) {
+                return;
+            }
             sprints.addAll(local);
         }
 
@@ -71,6 +74,10 @@ public class EditSprintController {
         }
         if (datePicker.getValue() == null) {
             errorLabel.setText("Choose deadline date");
+            return;
+        }
+        if (datePicker.getValue().isBefore(selectedSprint.getDate())) {
+            errorLabel.setText("You can not set past date");
             return;
         }
         Project project = projectApiController.get(projectSelector.getSelectionModel().getSelectedItem());
