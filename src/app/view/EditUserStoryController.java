@@ -6,12 +6,10 @@ import app.model.Project;
 import app.model.UserStory;
 import app.util.Util;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class EditUserStoryController {
     private UserStory selectedUserStory;
@@ -32,6 +30,10 @@ public class EditUserStoryController {
     @FXML
     @SuppressWarnings("unchecked")
     public void initialize() {
+        updateSelector();
+    }
+
+    private void updateSelector() {
         projectSelector.getItems().clear();
         userStorySelector.getItems().clear();
         ArrayList<Project> projects = projectApiController.getAll(Util.getCurrentUser().getCompany().getName());
@@ -58,10 +60,12 @@ public class EditUserStoryController {
     @FXML
     public void select() {
         selectedUserStory = userStoryApiController.get(userStorySelector.getSelectionModel().getSelectedItem());
-        nameField.setText(selectedUserStory.getName());
-        descriptionArea.setText(selectedUserStory.getDescription());
+        if (selectedUserStory != null) {
+            nameField.setText(selectedUserStory.getName());
+            descriptionArea.setText(selectedUserStory.getDescription());
 
-        projectSelector.getSelectionModel().select(selectedUserStory.getProject().getName());
+            projectSelector.getSelectionModel().select(selectedUserStory.getProject().getName());
+        }
     }
 
     @FXML
@@ -86,11 +90,21 @@ public class EditUserStoryController {
 
     @FXML
     public void handleDelete() {
-        if (selectedUserStory != null) {
-            userStoryApiController.remove(selectedUserStory.getId());
-            projectSelector.getItems().remove(selectedUserStory.getName());
-            nameField.setText("");
-            descriptionArea.setText("");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm deleting user story");
+        alert.setContentText("Do you really want to delete user story \"" + selectedUserStory.getName() + "\" ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            if (selectedUserStory != null) {
+                projectApiController.remove(selectedUserStory.getId());
+                projectSelector.getItems().remove(selectedUserStory);
+                nameField.setText("");
+                descriptionArea.setText("");
+                errorLabel.setText("Removed " + selectedUserStory.getName());
+
+            }
         }
+        updateSelector();
     }
 }

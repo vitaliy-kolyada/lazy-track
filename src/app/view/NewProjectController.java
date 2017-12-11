@@ -26,6 +26,8 @@ public class NewProjectController {
         }
         Project project = new Project(Util.getCurrentUser().getCompany(), nameField.getText(), descriptionArea.getText());
         if (projectApiController.create(project)) {
+            nameField.setText("");
+            descriptionArea.setText("");
             errorLabel.setText("Successfully created \"" + project.getName() + "\"");
         } else {
             errorLabel.setText("Project name must be unique");

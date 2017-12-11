@@ -60,6 +60,9 @@ public class NewSprintController {
         Sprint sprint = new Sprint(nameField.getText(), goalArea.getText(), project, datePicker.getValue());
         if (sprintApiController.create(sprint)) {
             errorLabel.setText("Created " + sprint.getName());
+            nameField.setText("");
+            goalArea.setText("");
+            datePicker.setValue(LocalDate.now());
         } else {
             errorLabel.setText("Name must be unique");
         }

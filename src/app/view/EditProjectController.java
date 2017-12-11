@@ -4,12 +4,10 @@ import app.controller.ProjectApiController;
 import app.model.Project;
 import app.util.Util;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class EditProjectController {
 
@@ -25,10 +23,13 @@ public class EditProjectController {
     private ComboBox projectSelector;
 
     @FXML
-    @SuppressWarnings("unchecked")
     public void initialize() {
-        projectSelector.getItems().clear();
+        updateSelector();
+    }
 
+    @SuppressWarnings("unchecked")
+    private void updateSelector() {
+        projectSelector.getItems().clear();
         ArrayList<Project> projects = projectApiController.getAll(Util.getCurrentUser().getCompany().getName());
         if (projects == null) {
             return;
@@ -41,8 +42,10 @@ public class EditProjectController {
     @FXML
     public void select() {
         selectedProject = projectApiController.get((String) projectSelector.getSelectionModel().getSelectedItem());
-        nameField.setText(selectedProject.getName());
-        descriptionArea.setText(selectedProject.getDescription());
+        if (selectedProject != null) {
+            nameField.setText(selectedProject.getName());
+            descriptionArea.setText(selectedProject.getDescription());
+        }
     }
 
     @FXML
@@ -64,11 +67,20 @@ public class EditProjectController {
 
     @FXML
     public void handleDelete() {
-        if (selectedProject != null) {
-            projectApiController.remove(selectedProject.getId());
-            projectSelector.getItems().remove(selectedProject);
-            nameField.setText("");
-            descriptionArea.setText("");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm deleting project");
+        alert.setContentText("Do you really want to delete project \"" + selectedProject.getName() + "\" ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            if (selectedProject != null) {
+                projectApiController.remove(selectedProject.getId());
+                projectSelector.getItems().remove(selectedProject);
+                nameField.setText("");
+                descriptionArea.setText("");
+                errorLabel.setText("Removed " + selectedProject.getName());
+            }
         }
+        updateSelector();
     }
 }

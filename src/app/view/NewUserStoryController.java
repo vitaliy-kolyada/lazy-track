@@ -54,6 +54,8 @@ public class NewUserStoryController {
         UserStory userStory = new UserStory(nameField.getText(), descriptionArea.getText(), project);
         if (userStoryApiController.create(userStory)) {
             errorLabel.setText("Created " + userStory.getName());
+            nameField.setText("");
+            descriptionArea.setText("");
         } else {
             errorLabel.setText("Name must be unique");
         }

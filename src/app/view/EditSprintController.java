@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class EditSprintController {
     private Sprint selectedSprint;
@@ -29,6 +30,10 @@ public class EditSprintController {
 
     @FXML
     public void initialize() {
+        updateSelector();
+    }
+
+    private void updateSelector() {
         projectSelector.getItems().clear();
         sprintSelector.getItems().clear();
         ArrayList<Project> projects = projectApiController.getAll(Util.getCurrentUser().getCompany().getName());
@@ -55,11 +60,12 @@ public class EditSprintController {
     @FXML
     public void select() {
         selectedSprint = sprintApiController.get(sprintSelector.getSelectionModel().getSelectedItem());
-        nameField.setText(selectedSprint.getName());
-        goalArea.setText(selectedSprint.getGoal());
-
-        projectSelector.getSelectionModel().select(selectedSprint.getProject().getName());
-        datePicker.setValue(selectedSprint.getDate());
+        if (selectedSprint != null) {
+            nameField.setText(selectedSprint.getName());
+            goalArea.setText(selectedSprint.getGoal());
+            projectSelector.getSelectionModel().select(selectedSprint.getProject().getName());
+            datePicker.setValue(selectedSprint.getDate());
+        }
     }
 
     @FXML
@@ -92,11 +98,21 @@ public class EditSprintController {
 
     @FXML
     public void handleDelete() {
-        if (selectedSprint != null) {
-            sprintApiController.remove(selectedSprint.getId());
-            projectSelector.getItems().remove(selectedSprint.getName());
-            nameField.setText("");
-            goalArea.setText("");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm deleting sprint");
+        alert.setContentText("Do you really want to delete sprint \"" + selectedSprint.getName() + "\" ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            if (selectedSprint != null) {
+                projectApiController.remove(selectedSprint.getId());
+                projectSelector.getItems().remove(selectedSprint);
+                nameField.setText("");
+                goalArea.setText("");
+                errorLabel.setText("Removed " + selectedSprint.getName());
+
+            }
         }
+        updateSelector();
     }
 }

@@ -76,6 +76,13 @@ public class RegisterController {
                 descriptionField.getText().equals("");
     }
 
+    private boolean startsWithSpace() {
+        return loginField.getText().startsWith(" ") ||
+                nameField.getText().startsWith(" ") ||
+                companyNameField.getText().startsWith(" ") ||
+                descriptionField.getText().startsWith(" ");
+    }
+
     private void initErrorMessage() {
         errorLabel.setText("");
         if (areEmptyFields()) {
@@ -88,6 +95,8 @@ public class RegisterController {
             errorLabel.setText("Not valid phone format");
         } else if (areDefaultValues()) {
             errorLabel.setText("You must have your own opinion");
+        } else if (startsWithSpace()) {
+            errorLabel.setText("Fields can not start with space");
         }
     }
 
@@ -131,7 +140,7 @@ public class RegisterController {
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setTitle("LazyTrack");
                     stage.setScene(new Scene(root1));
-                    stage.setResizable(false);
+                    stage.setResizable(true);
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
