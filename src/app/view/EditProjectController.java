@@ -1,86 +1,106 @@
 package app.view;
 
 import app.controller.ProjectApiController;
-import app.model.Project;
-import app.util.Util;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-import java.util.ArrayList;
+import app.model.dto.EditProjectDto;
+import java.util.List;
 import java.util.Optional;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 public class EditProjectController {
 
-    private ProjectApiController projectApiController = new ProjectApiController();
-    private Project selectedProject;
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextArea descriptionArea;
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private ComboBox projectSelector;
+  private List<EditProjectDto> projects;
+  private EditProjectDto selectedProject;
+  private ProjectApiController projectApiController;
+  @FXML
+  private TextField nameField;
+  @FXML
+  private TextArea descriptionArea;
+  @FXML
+  private Label errorLabel;
+  @FXML
+  private ComboBox projectSelector;
 
-    @FXML
-    public void initialize() {
-        updateSelector();
+  public EditProjectController() {
+    this.projectApiController = new ProjectApiController();
+  }
+
+  @FXML
+  public void initialize() {
+    updateSelector();
+  }
+
+  @SuppressWarnings("unchecked")
+  private void updateSelector() {
+    projectSelector.getItems().clear();
+    projects = projectApiController.getEditProjectDtos();
+    if (projects == null) {
+      return;
     }
-
-    @SuppressWarnings("unchecked")
-    private void updateSelector() {
-        projectSelector.getItems().clear();
-        ArrayList<Project> projects = projectApiController.getAll(Util.getCurrentUser().getCompany().getName());
-        if (projects == null) {
-            return;
-        }
-        for (Project project : projects) {
-            projectSelector.getItems().add(project.getName());
-        }
+    for (EditProjectDto project : projects) {
+      projectSelector.getItems().add(project.getName());
     }
+  }
 
-    @FXML
-    public void select() {
-        selectedProject = projectApiController.get((String) projectSelector.getSelectionModel().getSelectedItem());
-        if (selectedProject != null) {
-            nameField.setText(selectedProject.getName());
-            descriptionArea.setText(selectedProject.getDescription());
-        }
+  @FXML
+  public void select() {
+    String selectedName = (String) projectSelector.getSelectionModel().getSelectedItem();
+    selectedProject = getSelectedEditProjectDto(selectedName);
+    if (selectedProject != null) {
+      nameField.setText(selectedProject.getName());
+      descriptionArea.setText(selectedProject.getDescription());
     }
+  }
 
-    @FXML
-    public void handleSubmit() {
-        if (selectedProject == null) {
-            return;
-        }
-        if (nameField.getText().equals("")) {
-            errorLabel.setText("Project name is required");
-            return;
-        }
-        Project project = new Project(Util.getCurrentUser().getCompany(), nameField.getText(), descriptionArea.getText());
-        if (projectApiController.update(selectedProject.getId(), project)) {
-            errorLabel.setText("Successfully updated \"" + project.getName() + "\"");
-        } else {
-            errorLabel.setText("Project name must be unique");
-        }
+  private EditProjectDto getSelectedEditProjectDto(String projectName) {
+    EditProjectDto selected = null;
+    for (EditProjectDto project : projects) {
+      if (project.getName().equals(projectName)) {
+        selected = project;
+      }
     }
+    return selected;
+  }
 
-    @FXML
-    public void handleDelete() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm deleting project");
-        alert.setContentText("Do you really want to delete project \"" + selectedProject.getName() + "\" ?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            if (selectedProject != null) {
-                projectApiController.remove(selectedProject.getId());
-                projectSelector.getItems().remove(selectedProject);
-                nameField.setText("");
-                descriptionArea.setText("");
-                errorLabel.setText("Removed " + selectedProject.getName());
-            }
-        }
-        updateSelector();
+  @FXML
+  public void handleSubmit() {
+    if (selectedProject == null) {
+      return;
     }
+    if (nameField.getText().equals("")) {
+      errorLabel.setText("Project name is required");
+      return;
+    }
+    selectedProject.setName(nameField.getText());
+    selectedProject.setDescription(descriptionArea.getText());
+    if (projectApiController.update(selectedProject)) {
+      errorLabel.setText("Successfully updated \"" + selectedProject.getName() + "\"");
+    } else {
+      errorLabel.setText("Project name must be unique");
+    }
+  }
+
+  @FXML
+  public void handleDelete() {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Confirm deleting project");
+    alert.setContentText("Do you really want to delete project \"" + selectedProject.getName() + "\" ?");
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      if (selectedProject != null) {
+        projectApiController.remove(selectedProject.getId());
+        projectSelector.getItems().remove(selectedProject);
+        nameField.setText("");
+        descriptionArea.setText("");
+        errorLabel.setText("Removed " + selectedProject.getName());
+      }
+    }
+    updateSelector();
+  }
 }

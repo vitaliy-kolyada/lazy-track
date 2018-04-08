@@ -43,7 +43,7 @@ public class Client {
     }
 
     private static void getUser() {
-        System.out.println("\nTesting getUser API----------");
+        System.out.println("\nTesting login API----------");
         RestTemplate restTemplate = new RestTemplate();
         HttpEntity<String> request = new HttpEntity<String>(getHeaders());
         ResponseEntity<User> response = restTemplate.exchange(REST_SERVICE_URL + "/user/1", HttpMethod.GET, request, User.class);
