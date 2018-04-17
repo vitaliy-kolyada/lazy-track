@@ -61,7 +61,7 @@ public class Client {
     }
 
     private static void updateUser() {
-        System.out.println("\nTesting update User API----------");
+        System.out.println("\nTesting editProject User API----------");
         RestTemplate restTemplate = new RestTemplate();
         User user = new User();
         HttpEntity<Object> request = new HttpEntity<Object>(user, getHeaders());

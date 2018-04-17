@@ -134,7 +134,7 @@ public class RegisterController {
         try {
           Stage stage = (Stage) errorLabel.getScene().getWindow();
           stage.close();
-          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/SwimLane.fxml"));
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../board/controller/fxml/SwimLane.fxml"));
           Parent root1 = fxmlLoader.load();
           stage = new Stage();
           stage.initModality(Modality.APPLICATION_MODAL);

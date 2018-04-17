@@ -1,0 +1,7 @@
+1. Incorrect informative message about pass
+2. User can register with space login,name,company name and description (CHECK)
+3. Upgrade delete project/user story/sprint message (CHECK)
+4. Add confirm windows in delete something (CHECK)
+5. After creating entity fields must clears (CHECK)
+6. Combo box not updates after deleting entity (CHECK)
+7. User story/sprint menu must be blocked, if there are no project

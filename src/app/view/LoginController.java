@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 
 public class LoginController extends MainController {
 
-  private final static String SWIMLANE_RESOURCE = "fxml/SwimLane.fxml";
+  private final static String SWIMLANE_RESOURCE = "../board/controller/fxml/SwimLane.fxml";
   private final static String REGISTER_FORM = "fxml/RegisterForm.fxml";
 
   private UserApiController apiController = new UserApiController();
