@@ -19,9 +19,14 @@ public class StateService {
     tableStateDtos = controller.getTableStateDtos(projectId);
   }
 
-  public List<String> getStateNames(UUID proejctId) {
-    updateTableStateDtoList(proejctId);
+  public List<String> getStateNames(UUID projectId) {
+    updateTableStateDtoList(projectId);
     return tableStateDtos.stream().map(TableStateDto::getName).collect(Collectors.toList());
+  }
+
+  public List<TableStateDto> getStates(UUID projectId) {
+    updateTableStateDtoList(projectId);
+    return tableStateDtos;
   }
 
   public boolean createState(TableStateDto dto) {

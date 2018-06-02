@@ -19,6 +19,7 @@ public class MainController {
       stage.setTitle(title);
       stage.setScene(new Scene(root1));
       stage.setResizable(true);
+      stage.setMaximized(false);
       stage.show();
     } catch (IOException e) {
       e.printStackTrace();

@@ -3,7 +3,7 @@ package app.board.controller;
 import app.board.model.dto.TableStateDto;
 import app.board.service.StateService;
 import app.model.enumeration.LabelColor;
-import app.util.Util;
+import app.util.Context;
 import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,13 +31,13 @@ public class TableController {
   @FXML
   @SuppressWarnings("unchecked")
   private void initialize() {
-    if (Util.getCurrentProjectId() == null) {
+    if (Context.getCurrentProjectId() == null) {
       errorLabel.setTextFill(Color.web(LabelColor.ERROR.getCode()));
       errorLabel.setText("You must select project before editing board");
       return;
     }
     stateComboBox.getItems().clear();
-    stateComboBox.getItems().addAll(stateService.getStateNames(Util.getCurrentProjectId()));
+    stateComboBox.getItems().addAll(stateService.getStateNames(Context.getCurrentProjectId()));
   }
 
   @FXML
@@ -51,7 +51,7 @@ public class TableController {
     String selectedStateName = (String) stateComboBox.getSelectionModel().getSelectedItem();
     if (selectedStateName == null) {
       TableStateDto dto = new TableStateDto();
-      dto.setProjectId(Util.getCurrentProjectId());
+      dto.setProjectId(Context.getCurrentProjectId());
       dto.setName(nameField.getText());
       boolean created = stateService.createState(dto);
       createdUpdateLabel(created, dto.getName());
@@ -62,7 +62,7 @@ public class TableController {
       boolean updated = stateService.editState(dto);
       renamedUpdateLabel(updated, dto.getName());
     }
-    stateService.updateTableStateDtoList(Util.getCurrentProjectId());
+    stateService.updateTableStateDtoList(Context.getCurrentProjectId());
     initialize();
   }
 
@@ -96,7 +96,7 @@ public class TableController {
       errorLabel.setTextFill(Color.web(LabelColor.OK.getCode()));
       errorLabel.setText("Removed \"" + selectedStateName + "\"");
       stateComboBox.getItems().remove(selectedStateName);
-      stateService.updateTableStateDtoList(Util.getCurrentProjectId());
+      stateService.updateTableStateDtoList(Context.getCurrentProjectId());
       initialize();
       nameField.setText("");
     } else {

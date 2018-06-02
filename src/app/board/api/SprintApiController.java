@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,22 +26,22 @@ public class SprintApiController extends ApiController {
     String url = "http://localhost:8080/api/sprint";
     HttpEntity<Object> requestEntity = new HttpEntity<>(request, getHeaders());
     try {
-      restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+      ResponseEntity responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+      return responseEntity.getStatusCode().equals(HttpStatus.OK);
     } catch (Exception e) {
       return false;
     }
-    return true;
   }
 
   public boolean update(EditSprintDto sprint) {
     String url = "http://localhost:8080/api/sprint/edit";
     HttpEntity<Object> requestEntity = new HttpEntity<>(sprint, getHeaders());
     try {
-      restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
+      ResponseEntity responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
+      return responseEntity.getStatusCode().equals(HttpStatus.OK);
     } catch (Exception e) {
       return false;
     }
-    return true;
   }
 
   public void remove(UUID id) {

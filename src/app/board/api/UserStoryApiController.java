@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,11 +44,11 @@ public class UserStoryApiController extends ApiController {
     String url = "http://localhost:8080/api/user-story";
     HttpEntity<Object> requestEntity = new HttpEntity<>(request, getHeaders());
     try {
-      restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+      ResponseEntity responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
+      return responseEntity.getStatusCode().equals(HttpStatus.OK);
     } catch (Exception e) {
       return false;
     }
-    return true;
   }
 
   @SuppressWarnings("unchecked")

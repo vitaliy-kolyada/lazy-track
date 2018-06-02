@@ -4,7 +4,7 @@ import app.controller.CompanyApiController;
 import app.controller.UserApiController;
 import app.model.Company;
 import app.model.User;
-import app.util.Util;
+import app.util.Context;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import javafx.fxml.FXML;
@@ -130,7 +130,7 @@ public class RegisterController {
 //            if (userApiController.register(user)) {
       if (true) {
         errorLabel.setText("Ok");
-        Util.setCurrentUser(user);
+        Context.setCurrentUser(user);
         try {
           Stage stage = (Stage) errorLabel.getScene().getWindow();
           stage.close();
