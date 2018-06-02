@@ -1,13 +1,15 @@
 package app.board.controller;
 
+import app.board.model.dto.IssueSummary;
 import app.board.service.ProjectService;
 import app.board.service.SprintService;
+import app.board.service.StateService;
 import app.board.service.UserStoryService;
+import app.util.Util;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,54 +22,35 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class SwimLaneController {
+
+
   private SprintService sprintService = new SprintService();
+  private StateService stateService = new StateService();
   private UserStoryService userStoryService = new UserStoryService();
   private ProjectService projectService = new ProjectService();
+
+
   // Table objects
   @FXML
-  private TableView table;
-//  @FXML
-//  private TableView<ObservableList> openTable;
-//  @FXML
-//  private TableColumn<Issue, String> openColumn;
-//  @FXML
-//  private TableView<Issue> inProgressTable;
-//  @FXML
-//  private TableColumn<Issue, String> inProgressColumn;
-//  @FXML
-//  private TableView<Issue> reopenTable;
-//  @FXML
-//  private TableColumn<Issue, String> reopenColumn;
-//  @FXML
-//  private TableView<Issue> fixedTable;
-//  @FXML
-//  private TableColumn<Issue, String> fixedColumn;
-//  @FXML
-//  private TableView<Issue> verifiedTable;
-//  @FXML
-//  private TableColumn<Issue, String> verifiedColumn;
-
+  private GridPane tableLayout;
   // Menu bar
   @FXML
   private Menu userStoryMenu;
   @FXML
   private Menu sprintMenu;
-
   // Selectors
   @FXML
   private ComboBox<String> projectSelector;
   @FXML
   private ComboBox<String> userStorySelector;
-
   // Buttons
   @FXML
   private Button startButton;
-
   // Info
   @FXML
   private Label sprintNameLabel;
@@ -75,77 +58,63 @@ public class SwimLaneController {
   private Label uptimeLabel;
 
   @FXML
-  @SuppressWarnings("unchecked")
   private void initTables() {
-    if (projectSelector.getSelectionModel().getSelectedItem() == null
-        && userStorySelector.getSelectionModel().getSelectedItem() != null) {
-      String userStoryName = userStorySelector.getSelectionModel().getSelectedItem();
-      UUID projectId = userStoryService.getProjectIdByUserStoryName(userStoryName);
-      projectSelector.getSelectionModel().select(projectService.getNameById(projectId));
+    String projectName = projectSelector.getSelectionModel().getSelectedItem();
+    if (projectName != null) {
+      UUID currentProjectId = projectService.getIdByName(projectName);
+      Util.setCurrentProjectId(currentProjectId);
+      List<String> columns = stateService.getStateNames(currentProjectId);
+      if (columns.isEmpty()) {
+        createState();
+      }
+      initColumns(columns);
     }
-
-//    if (userStoryName != null) {
-//      ObservableList<Issue> openList = FXCollections.observableArrayList();
-//      openList.addAll(issueApiController.getAll(userStoryName, 1));
-//      openTable.setItems(openList);
-//      openColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-
-
-//    ObservableList<Issue> inProgressList = FXCollections.observableArrayList();
-//    inProgressList.addAll(issueApiController.getAll(userStoryName, 2));
-//    inProgressTable.setItems(inProgressList);
-//    inProgressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-//        cellData.getValue().getName()));
-//
-//    ObservableList<Issue> reopenList = FXCollections.observableArrayList();
-//    reopenList.addAll(issueApiController.getAll(userStoryName, 3));
-//    reopenTable.setItems(reopenList);
-//    reopenColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-//        cellData.getValue().getName()));
-//
-//    ObservableList<Issue> fixedList = FXCollections.observableArrayList();
-//    fixedList.addAll(issueApiController.getAll(userStoryName, 4));
-//    fixedTable.setItems(fixedList);
-//    fixedColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-//        cellData.getValue().getName()));
-//
-//    ObservableList<Issue> verifyList = FXCollections.observableArrayList();
-//    verifyList.addAll(issueApiController.getAll(userStoryName, 5));
-//    verifiedTable.setItems(verifyList);
-//    verifiedColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-//        cellData.getValue().getName()));
   }
 
+  @SuppressWarnings("unchecked")
+  private void initColumns(List<String> columns) {
+
+    tableLayout.getChildren().clear();
+
+    for (int i = 0; i < columns.size(); i++) {
+      TableView<IssueSummary> tableView = new TableView();
+      tableView.addEventHandler(MouseEvent.MOUSE_CLICKED, this::tableClick);
+      tableView.getSelectionModel().selectedItemProperty()
+          .addListener((observable, oldValue, newValue) -> {
+            Util.setSelectedIssue(oldValue.getId());
+          });
+
+      tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+      tableView.getColumns().add(new TableColumn<>(columns.get(i)));
+
+      tableLayout.addColumn(i, tableView);
+    }
+  }
+
+  @SuppressWarnings("unchecked")
+  private void populateColumns(TableView tableView) {
+
+  }
+
+  private List<List<String>> getData() {
+//    List<List<String>> res = new ArrayList<>();
+//    int tableSize = table.getColumns().size();
+//
+//    for (int i = 0; i < tableSize; i++) {
+//      int dataSize = 20;
+//      ArrayList<String> list = new ArrayList<>();
+//      for (int j = 0; j < dataSize; j++) {
+//        list.add("DATA " + i + " " + j);
+//      }
+//      res.add(list);
+//    }
+//    return res;
+    return Collections.emptyList();
+  }
 
   @FXML
   @SuppressWarnings("unchecked")
   public void initialize() {
-
-    List<String> columns = new ArrayList<>();
-    columns.add("Open");
-    columns.add("In progress");
-    columns.add("To verify");
-    columns.add("Reopen");
-    columns.add("Done");
-
-    TableColumn[] tableColumns = new TableColumn[columns.size()];
-    int columnIndex = 0;
-    for (String columName : columns) {
-      tableColumns[columnIndex++] = new TableColumn(columName);
-    }
-
-    Screen screen = Screen.getPrimary();
-//    double tableWidth = screen.getBounds().getHeight();
-//
-//    for (TableColumn tableColumn : tableColumns) {
-//      tableColumn.setMinWidth(tableWidth / tableColumns.length);
-//    }
-    table.getColumns().addAll(tableColumns);
-
-    ObservableList<TableColumn<String, String>> tableColumnList = table.getColumns();
-
-    projectSelector.getItems().clear();
-    userStorySelector.getItems().clear();
     initProjectSelector();
     initUserStorySelector();
   }
@@ -180,20 +149,6 @@ public class SwimLaneController {
     userStorySelector.getItems().addAll(userStories);
   }
 
-  private void showDialogWindow(String fxmlPath, String title) {
-    try {
-      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
-      Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
-      stage.initModality(Modality.APPLICATION_MODAL);
-      stage.setTitle(title);
-      stage.setScene(new Scene(root));
-      stage.setResizable(false);
-      stage.show();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
 
   @FXML
   public void startNewProject() {
@@ -235,15 +190,46 @@ public class SwimLaneController {
     }
   }
 
-  @FXML
-  public void tableClick(MouseEvent mouseEvent) {
-    if (mouseEvent.getClickCount() == 2) {
+  private void showDialogWindow(String fxmlPath, String title) {
+    try {
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlPath));
+      Parent root = fxmlLoader.load();
+      Stage stage = new Stage();
+      stage.initModality(Modality.APPLICATION_MODAL);
+      stage.setTitle(title);
+      stage.setScene(new Scene(root));
+      stage.setResizable(false);
+      stage.show();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void tableClick(MouseEvent mouseEvent) {
+
+    int clickCount = mouseEvent.getClickCount();
+
+    if (clickCount == 1) {
+      showDialogWindow("fxml/Issue.fxml", "Create/Edit Issue");
+    } else if (clickCount == 2) {
       createState();
     }
+    initColumns(stateService.getStateNames(Util.getCurrentProjectId()));
   }
 
   @FXML
   private void createState() {
     showDialogWindow("fxml/EditTable.fxml", "Update state list");
+  }
+
+  @FXML
+  public void selectUserStory(ActionEvent actionEvent) {
+    String selectedName = userStorySelector.getSelectionModel().getSelectedItem();
+    if (selectedName != null) {
+      UUID projectId = userStoryService.getProjectIdByUserStoryName(selectedName);
+      Util.setCurrentProjectId(projectId);
+      projectSelector.getSelectionModel().select(projectService.getNameById(projectId));
+      initTables();
+    }
   }
 }

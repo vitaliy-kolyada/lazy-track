@@ -31,4 +31,8 @@ public class ProjectService {
   public String getNameById(UUID projectId) {
     return selectorDtos.stream().filter(x -> x.getId().equals(projectId)).findFirst().get().getName();
   }
+
+  public UUID getIdByName(String projectName) {
+    return selectorDtos.stream().filter(x -> x.getName().equals(projectName)).findFirst().get().getId();
+  }
 }
